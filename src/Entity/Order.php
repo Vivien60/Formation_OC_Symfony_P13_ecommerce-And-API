@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
+#[ORM\HasLifecycleCallbacks]
 class Order
 {
     #[ORM\Id]
@@ -34,10 +35,16 @@ class Order
      */
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'purchaseOrder', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $items;
+    /**
+     * @var true
+     */
+    private bool $flagPriceIsDirty = false;
 
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -47,6 +54,9 @@ class Order
 
     public function getTotalPrice(): ?float
     {
+        if( $this->flagPriceIsDirty ) {
+            $this->computeTotalPrice();
+        }
         return $this->totalPrice;
     }
 
@@ -103,13 +113,21 @@ class Order
 
     public function addItem(OrderItem $item): static
     {
-        if (!$this->items->contains($item)) {
+        $orderItem = $this->items->findFirst(function($key, $orderItem) use ($item) {
+            return $orderItem->getProduct()->getId() === $item->getProduct()->getId();
+        });
+        if( $orderItem ) {
+            $orderItem->setQuantity($orderItem->getQuantity() + $item->getQuantity());
+        } else {
             $this->items->add($item);
             $item->setPurchaseOrder($this);
         }
 
+        $this->flagPriceIsDirty = true;
+
         return $this;
     }
+
 
     public function removeItem(OrderItem $item): static
     {
@@ -121,5 +139,24 @@ class Order
         }
 
         return $this;
+    }
+
+    public function addProduct(Product $product)
+    {
+        $item = new OrderItem();
+        $item->setProduct($product);
+        $item->setQuantity(1);
+        $this->addItem($item);
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function computeTotalPrice() : void
+    {
+        $totalPrice = 0;
+        foreach($this->items as $item) {
+            $totalPrice += $item->getQuantity() * $item->getUnitPrice();
+        }
+        $this->setTotalPrice($totalPrice);
     }
 }
