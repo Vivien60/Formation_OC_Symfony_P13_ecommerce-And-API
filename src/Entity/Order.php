@@ -19,20 +19,19 @@ class Order
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['order:read', 'order:write'])]
+    #[Groups(['user:read'])]
     private ?float $totalPrice = null;
 
     #[ORM\Column]
-    #[Groups(['order:read', 'order:write'])]
+    #[Groups(['user:read'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    #[Groups(['order:read', 'order:write'])]
+    #[Groups(['user:read'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['order:read', 'order:write'])]
     private ?User $owner = null;
 
     /**
