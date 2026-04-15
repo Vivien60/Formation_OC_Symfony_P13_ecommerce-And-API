@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @extends ServiceEntityRepository<Order>
@@ -16,14 +18,13 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function findAllWithPagination(int $page, int $limit): array
+    public function findAllWithPagination(): Pagerfanta
     {
-        return $this->findBy([], ['id' => 'DESC'], $limit, ($page - 1) * $limit);
-        return $this->createQueryBuilder('o')
-            ->setFirstResult(($page - 1) * $limit)
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+        $query = $this->createQueryBuilder('o')
+            ->addOrderBy('o.updatedAt', 'DESC')
+            ->addOrderBy('o.createdAt', 'DESC')
+            ->getQuery();
+        return new Pagerfanta(new QueryAdapter($query));
     }
 
 
