@@ -16,9 +16,6 @@ class Cart
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?float $totalPrice = null;
-
-    #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
@@ -37,6 +34,8 @@ class Cart
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -46,14 +45,11 @@ class Cart
 
     public function getTotalPrice(): ?float
     {
-        return $this->totalPrice;
-    }
-
-    public function setTotalPrice(float $totalPrice): static
-    {
-        $this->totalPrice = $totalPrice;
-
-        return $this;
+        $totalPrice = 0;
+        foreach( $this->items as $item ) {
+            $totalPrice += $item->getUnitPrice() * $item->getQuantity();
+        }
+        return $totalPrice;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -102,7 +98,12 @@ class Cart
 
     public function addItem(CartItem $item): static
     {
-        if (!$this->items->contains($item)) {
+        $cartItem = $this->items->findFirst(function($key, $cartItem) use ($item) {
+            return $cartItem->getProduct()->getId() === $item->getProduct()->getId();
+        });
+        if( $cartItem ) {
+            $cartItem->setQuantity($cartItem->getQuantity() + $item->getQuantity());
+        } else {
             $this->items->add($item);
             $item->setCart($this);
         }
@@ -120,5 +121,13 @@ class Cart
         }
 
         return $this;
+    }
+
+    public function addProduct(Product $product)
+    {
+        $cartItem = new CartItem();
+        $cartItem->setProduct($product);
+        $cartItem->setQuantity(1);
+        $this->addItem($cartItem);
     }
 }
