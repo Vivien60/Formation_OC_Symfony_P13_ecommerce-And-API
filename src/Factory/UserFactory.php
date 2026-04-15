@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Entity\User;
 use App\Faker\FakeEntityDates;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**.
@@ -17,7 +18,9 @@ final class UserFactory extends PersistentObjectFactory
      */
     public function __construct(
         private FakeEntityDates $fakeEntityDates,
-        #[Autowire('%env(DEFAULT_PWD)%')] private string $defaultPassword)
+        #[Autowire('%env(DEFAULT_PWD)%')] private string $defaultPassword,
+        private ?UserPasswordHasherInterface $passwordHasher = null,
+    )
     {
     }
 
@@ -60,7 +63,11 @@ final class UserFactory extends PersistentObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(User $user): void {})
+            ->afterInstantiate(function(User $user) {
+                if ($this->passwordHasher !== null) {
+                    $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
+                }
+            })
         ;
     }
 }

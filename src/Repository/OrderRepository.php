@@ -16,6 +16,17 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
+    public function findAllWithPagination(int $page, int $limit): array
+    {
+        return $this->findBy([], ['id' => 'DESC'], $limit, ($page - 1) * $limit);
+        return $this->createQueryBuilder('o')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Order[] Returns an array of Order objects
     //     */

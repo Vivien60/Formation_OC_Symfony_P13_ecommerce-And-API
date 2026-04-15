@@ -65,6 +65,7 @@ class AppFixtures extends Fixture
             foreach (array_rand(array: $products, num: rand(2, 5)) as $productKey) {
                 $order->addProduct($products[$productKey]);
             }
+            $order->computeTotalPrice();
         }
 
         return $orders;

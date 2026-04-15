@@ -34,7 +34,7 @@ final class ProductFactory extends PersistentObjectFactory
         return [
             'description' => self::faker()->text(),
             'name' => self::faker()->text(255),
-            'price' => self::faker()->randomFloat(),
+            'price' => self::faker()->randomFloat(2,1,500),
             'shortDescription' => self::faker()->text(),
             ...$this->fakeEntityDates->newDates(),
         ];

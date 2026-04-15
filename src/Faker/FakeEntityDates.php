@@ -19,7 +19,7 @@ class FakeEntityDates
     public function newDates(): array|callable
     {
         //La date de mise à jour doit être postérieure à la date de création
-        $updatedAt = $this->faker->dateTime();
+        $updatedAt = new \DateTime();
         $createdAt = $this->faker->dateTime($updatedAt);
         return [
             'createdAt' => \DateTimeImmutable::createFromMutable($createdAt),
