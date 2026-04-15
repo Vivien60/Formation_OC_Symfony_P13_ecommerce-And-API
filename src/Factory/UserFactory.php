@@ -7,7 +7,7 @@ use App\Faker\FakeEntityDates;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
-/**
+/**.
  * @extends PersistentObjectFactory<User>
  */
 final class UserFactory extends PersistentObjectFactory
@@ -15,7 +15,9 @@ final class UserFactory extends PersistentObjectFactory
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      */
-    public function __construct(#[Autowire('%env(DEFAULT_PWD)%')] private string $defaultPassword, private FakeEntityDates $fakeEntityDates)
+    public function __construct(
+        private FakeEntityDates $fakeEntityDates,
+        #[Autowire('%env(DEFAULT_PWD)%')] private string $defaultPassword)
     {
     }
 
