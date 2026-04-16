@@ -12,7 +12,7 @@ final class UserController extends AbstractController
     #[Route('/account', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
-        $user = $userRepository->find(342);
+        $user = $this->getUser();
 
         return $this->json(
             data:['orders' => $user->getOrders()],
