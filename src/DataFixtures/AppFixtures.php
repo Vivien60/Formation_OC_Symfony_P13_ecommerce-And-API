@@ -2,22 +2,15 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
 use App\Factory\CartFactory;
 use App\Factory\OrderFactory;
 use App\Factory\ProductFactory;
 use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $passwordHasher)
-    {
-
-    }
-
     public function load(ObjectManager $manager): void
     {
         $products = ProductFactory::createMany(20);
@@ -38,7 +31,7 @@ class AppFixtures extends Fixture
     {
         $carts = CartFactory::createMany($nb, function () use ($manager) {
             return [
-                'owner' => UserFactory::new()->afterInstantiate($this->hashPassword(...)),
+                'owner' => UserFactory::new(),
             ];
         });
         foreach ($carts as $cart) {
@@ -69,11 +62,5 @@ class AppFixtures extends Fixture
         }
 
         return $orders;
-    }
-
-    protected function hashPassword(User $user) : void
-    {
-        $hash = $this->passwordHasher->hashPassword($user, $user->getPassword());
-        $user->setPassword($hash);
     }
 }
