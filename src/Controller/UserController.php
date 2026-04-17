@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,5 +22,14 @@ final class UserController extends AbstractController
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
         ]);
+    }
+
+    #[Route('/account/delete', name: 'app_user_delete', methods: ['POST'])]
+    public function delete(EntityManagerInterface $manager): Response
+    {
+        $user = $this->getUser();
+        $manager->remove($user);
+        $manager->flush();
+        return $this->json(['message' => 'delete']);
     }
 }
