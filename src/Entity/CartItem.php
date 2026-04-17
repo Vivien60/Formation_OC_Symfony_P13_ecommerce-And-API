@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CartItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @internal
@@ -17,9 +18,11 @@ class CartItem
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['cart:read'])]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['cart:read'])]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'items')]
@@ -28,6 +31,13 @@ class CartItem
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[Groups(['cart:read'])]
+    private float $subTotal {
+        get {
+            return $this->getQuantity() * $this->getProduct()->getPrice();
+        }
+    }
 
     public function __construct()
     {
@@ -85,5 +95,10 @@ class CartItem
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function getSubTotal(): float
+    {
+        return $this->subTotal;
     }
 }
