@@ -100,9 +100,11 @@ class Cart
 
     public function addItem(CartItem $item): static
     {
-        $cartItem = $this->items->findFirst(function($key, $cartItem) use ($item) {
-            return $cartItem->getProduct()->getId() === $item->getProduct()->getId();
-        });
+        $cartItem = $this->items->findFirst(
+            function($key, $cartItem) use ($item) {
+                return $cartItem->getProduct()->getId() === $item->getProduct()->getId();
+            }
+        );
         if( $cartItem ) {
             $cartItem->setQuantity($cartItem->getQuantity() + $item->getQuantity());
         } else {

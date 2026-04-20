@@ -124,6 +124,7 @@ class Order
             $orderItem->setQuantity($orderItem->getQuantity() + $item->getQuantity());
         } else {
             $this->items->add($item);
+            $item->setUnitPrice($item->getProduct()->getPrice());
             $item->setPurchaseOrder($this);
         }
 

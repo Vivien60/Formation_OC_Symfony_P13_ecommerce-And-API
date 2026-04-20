@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
      */
     protected function loadOrders(ObjectManager $manager, array $products, int $nb): array
     {
-        $orders = OrderFactory::createMany($nb, function () use ($manager, $products) {
+        $orders = OrderFactory::createMany($nb, function () use ($manager) {
             return [
                 'owner' => UserFactory::random(),
             ];

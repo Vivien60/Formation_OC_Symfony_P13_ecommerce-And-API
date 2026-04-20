@@ -39,6 +39,7 @@ class Product
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['cart:read'])]
     private ?string $shortDescription = null;
 
     public function __construct()
