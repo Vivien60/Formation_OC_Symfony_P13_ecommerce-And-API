@@ -22,16 +22,16 @@ class Cart
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cart')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $owner = null;
-
     /**
      * @var Collection<int, CartItem>
      */
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', orphanRemoval: true, cascade: ['persist', 'remove'])]
     #[Groups(['cart:read'])]
     private Collection $items;
+
+    #[ORM\OneToOne(inversedBy: 'cart', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
 
     public function __construct()
     {
@@ -74,18 +74,6 @@ class Cart
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?User $owner): static
-    {
-        $this->owner = $owner;
 
         return $this;
     }
@@ -133,5 +121,17 @@ class Cart
         $cartItem->setProduct($product);
         $cartItem->setQuantity(1);
         $this->addItem($cartItem);
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(User $owner): static
+    {
+        $this->owner = $owner;
+
+        return $this;
     }
 }

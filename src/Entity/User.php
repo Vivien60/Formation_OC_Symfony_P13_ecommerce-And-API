@@ -67,16 +67,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'owner', orphanRemoval: true)]
     private Collection $orders;
 
-    /**
-     * @var Collection<int, Cart>
-     */
-    #[ORM\OneToMany(targetEntity: Cart::class, mappedBy: 'owner', orphanRemoval: true)]
-    private Collection $cart;
+    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
+    private ?Cart $cart = null;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        $this->cart = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -250,32 +246,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Cart>
-     */
-    public function getCart(): Collection
+    public function getCart(): ?Cart
     {
         return $this->cart;
     }
 
-    public function addCart(Cart $cart): static
+    public function setCart(Cart $cart): static
     {
-        if (!$this->cart->contains($cart)) {
-            $this->cart->add($cart);
+        // set the owning side of the relation if necessary
+        if ($cart->getOwner() !== $this) {
             $cart->setOwner($this);
         }
 
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): static
-    {
-        if ($this->cart->removeElement($cart)) {
-            // set the owning side to null (unless already changed)
-            if ($cart->getOwner() === $this) {
-                $cart->setOwner(null);
-            }
-        }
+        $this->cart = $cart;
 
         return $this;
     }

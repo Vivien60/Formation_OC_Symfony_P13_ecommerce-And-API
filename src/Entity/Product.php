@@ -26,7 +26,6 @@ class Product
     private ?float $price = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['cart:read'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
