@@ -22,7 +22,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart/truncate', name: 'app_cart_truncate', methods: ['POST'])]
-    public function truncate(UserRepository $userRepository, EntityManagerInterface $manager)
+    public function truncate(UserRepository $userRepository, EntityManagerInterface $manager) : Response
     {
         $user = $this->getUser();
         /**
@@ -32,5 +32,15 @@ final class CartController extends AbstractController
         $manager->flush();
         $updatedUser = $userRepository->find($user->getId());
         return $this->json(data: $updatedUser->getCart(), context: ['groups' => ['cart:read']]);
+    }
+
+    #[Route('/cart/checkout', name: 'app_cart_checkout', methods: ['POST'])]
+    public function checkout(\App\Controller\Service\Checkout $checkoutService, EntityManagerInterface $manager) : Response
+    {
+        $cart = $this->getUser()->getCart();
+        $order = $checkoutService->createOrderFromCart(cart: $cart);
+
+        $manager->flush();
+        return $this->json(data: $order, context: ['groups' => ['order:read']]);
     }
 }

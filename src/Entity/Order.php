@@ -19,25 +19,27 @@ class Order
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'order:read'])]
     private ?float $totalPrice = null;
 
     #[ORM\Column]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'order:read'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'order:read'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['order:read'])]
     private ?User $owner = null;
 
     /**
      * @var Collection<int, OrderItem>
      */
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'purchaseOrder', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[Groups(['order:read'])]
     private Collection $items;
     /**
      * @var true
@@ -146,11 +148,11 @@ class Order
         return $this;
     }
 
-    public function addProduct(Product $product)
+    public function addProduct(Product $product, int $quantity = 1)
     {
         $item = new OrderItem();
         $item->setProduct($product);
-        $item->setQuantity(1);
+        $item->setQuantity($quantity);
         $this->addItem($item);
     }
 
