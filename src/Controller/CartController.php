@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\Checkout;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +36,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart/checkout', name: 'app_cart_checkout', methods: ['POST'])]
-    public function checkout(\App\Controller\Service\Checkout $checkoutService, EntityManagerInterface $manager) : Response
+    public function checkout(Checkout $checkoutService, EntityManagerInterface $manager) : Response
     {
         $cart = $this->getUser()->getCart();
         $order = $checkoutService->createOrderFromCart(cart: $cart);
