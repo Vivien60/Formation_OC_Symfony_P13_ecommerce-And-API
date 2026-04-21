@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Controller\Service\PageableRepositoryInterface;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,13 +19,9 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findAllWithPagination(): Pagerfanta
+    public function findLast(int $maxResults = 10): array
     {
-        $query = $this->createQueryBuilder('p')
-            ->addOrderBy('p.updatedAt', 'DESC')
-            ->addOrderBy('p.createdAt', 'DESC')
-            ->getQuery();
-        return new Pagerfanta(new QueryAdapter($query));
+        return $this->findBy([], ['updatedAt' => 'DESC', 'createdAt' => 'DESC'], $maxResults);
     }
 
     //    /**
