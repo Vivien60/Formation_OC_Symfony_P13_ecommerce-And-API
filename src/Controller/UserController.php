@@ -41,7 +41,7 @@ final class UserController extends AbstractController
         /**
          * @var User $user
          */
-        $user->setApiAccess(true);
+        $user->enableApiAccess();
         $manager->flush();
 
         return $this->json(['message' => 'access granted']);
@@ -54,7 +54,7 @@ final class UserController extends AbstractController
         /**
          * @var User $user
          */
-        $user->setApiAccess(false);
+        $user->setApiAccessEnabled(false);
         $manager->flush();
 
         return $this->json(['message' => 'access revoked']);

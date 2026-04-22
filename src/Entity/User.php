@@ -73,12 +73,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     #[Groups(['user:read'])]
-    private ?bool $apiAccess = null;
+    private ?bool $apiAccessEnabled = null;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        $this->apiAccess = false;
+        $this->apiAccessEnabled = false;
     }
 
     public function getId(): ?int
@@ -278,14 +278,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getUserIdentifier();
     }
 
-    public function isApiAccess(): ?bool
+    public function isApiAccessEnabled(): ?bool
     {
-        return $this->apiAccess;
+        return $this->apiAccessEnabled;
     }
 
-    public function setApiAccess(bool $apiAccess): static
+    public function enableApiAccess(): static {
+        $this->apiAccessEnabled = true;
+
+        return $this;
+    }
+
+    public function disableApiAccess(): static {
+        $this->apiAccessEnabled = false;
+
+        return $this;
+    }
+
+    public function setApiAccessEnabled(bool $apiAccessEnabled): static
     {
-        $this->apiAccess = $apiAccess;
+        $this->apiAccessEnabled = $apiAccessEnabled;
 
         return $this;
     }
