@@ -22,7 +22,7 @@ direction LR
 	    lastname
 	    password
 	    cguAccepted [yes, no]
-	    api [yes, no]
+	    apiAccess [yes, no]
         createdAt
         updatedAt
     }
@@ -31,8 +31,8 @@ direction LR
         name
         price
         shortDescription
-        description
-        image
+        fullDescription
+        picture
         createdAt
         updatedAt
     }

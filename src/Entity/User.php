@@ -65,14 +65,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Order>
      */
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'owner', orphanRemoval: true)]
+    #[Groups(['user:read'])]
     private Collection $orders;
 
     #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
     private ?Cart $cart = null;
 
+    #[ORM\Column]
+    #[Groups(['user:read'])]
+    private ?bool $apiAccessEnabled = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->apiAccessEnabled = false;
     }
 
     public function getId(): ?int
@@ -270,6 +276,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string {
         return $this->getUserIdentifier();
+    }
+
+    public function isApiAccessEnabled(): ?bool
+    {
+        return $this->apiAccessEnabled;
+    }
+
+    public function enableApiAccess(): static {
+        $this->apiAccessEnabled = true;
+
+        return $this;
+    }
+
+    public function disableApiAccess(): static {
+        $this->apiAccessEnabled = false;
+
+        return $this;
+    }
+
+    public function setApiAccessEnabled(bool $apiAccessEnabled): static
+    {
+        $this->apiAccessEnabled = $apiAccessEnabled;
+
+        return $this;
     }
 
 }
