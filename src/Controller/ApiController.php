@@ -15,7 +15,6 @@ final class ApiController extends AbstractController
     #[Route('/products', name: 'products', methods: ['GET'])]
     public function products(Request $request, ProductRepository $repository, PagerConfiguratorService $pagerConfigurator): Response
     {
-        throw new \Exception('not implemented');
         $page = $request->query->getInt('page', 1);
         $pagedProducts = $repository->findAllWithPagination();
         $pagerConfigurator->configure($pagedProducts, $page, 5);
