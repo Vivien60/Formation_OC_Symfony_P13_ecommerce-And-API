@@ -9,11 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api', name: 'app_api_')]
 final class ApiController extends AbstractController
 {
-    #[Route('/api/products', name: 'app_api_products', methods: ['GET'])]
+    #[Route('/products', name: 'products', methods: ['GET'])]
     public function products(Request $request, ProductRepository $repository, PagerConfiguratorService $pagerConfigurator): Response
     {
+        throw new \Exception('not implemented');
         $page = $request->query->getInt('page', 1);
         $pagedProducts = $repository->findAllWithPagination();
         $pagerConfigurator->configure($pagedProducts, $page, 5);
