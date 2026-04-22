@@ -15,21 +15,24 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['cart:read'])]
+    #[Groups(['cart:read', 'product:read'])]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups(['cart:read'])]
+    #[Groups(['cart:read', 'product:read'])]
     private ?float $price = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    #[Groups(['product:read'])]
+    private ?string $fullDescription = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    #[Groups(['product:read'])]
+    private ?string $picture = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -38,7 +41,7 @@ class Product
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['cart:read', 'order:read'])]
+    #[Groups(['cart:read', 'order:read', 'product:read'])]
     private ?string $shortDescription = null;
 
     public function __construct()
@@ -74,26 +77,26 @@ class Product
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getFullDescription(): ?string
     {
-        return $this->description;
+        return $this->fullDescription;
     }
 
-    public function setDescription(?string $description): static
+    public function setFullDescription(?string $fullDescription): static
     {
-        $this->description = $description;
+        $this->fullDescription = $fullDescription;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getPicture(): ?string
     {
-        return $this->image;
+        return $this->picture;
     }
 
-    public function setImage(?string $image): static
+    public function setPicture(?string $picture): static
     {
-        $this->image = $image;
+        $this->picture = $picture;
 
         return $this;
     }
