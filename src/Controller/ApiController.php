@@ -17,6 +17,6 @@ final class ApiController extends AbstractController
         $page = $request->query->getInt('page', 1);
         $pagedProducts = $repository->findAllWithPagination();
         $pagerConfigurator->configure($pagedProducts, $page, 5);
-        return $this->json(data: $pagedProducts);
+        return $this->json(data: $pagedProducts, context: ['groups' => ['product:read']]);
     }
 }
