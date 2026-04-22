@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ final class UserController extends AbstractController
         $user = $this->getUser();
 
         return $this->json(
-            data:['orders' => $user->getOrders()],
+            data:$user,
             context:['groups' => ['user:read']]
         );
         return $this->render('user/index.html.twig', [
@@ -31,5 +32,31 @@ final class UserController extends AbstractController
         $manager->remove($user);
         $manager->flush();
         return $this->json(['message' => 'delete']);
+    }
+
+    #[Route('/account/activate-api', name: 'app_activate_api', methods: ['POST'])]
+    public function activateAccessToApi(EntityManagerInterface $manager)
+    {
+        $user = $this->getUser();
+        /**
+         * @var User $user
+         */
+        $user->setApiAccess(true);
+        $manager->flush();
+
+        return $this->json(['message' => 'access granted']);
+    }
+
+    #[Route('/account/deactivate-api', name: 'app_deactivate_api', methods: ['POST'])]
+    public function deactivateAccessToApi(EntityManagerInterface $manager)
+    {
+        $user = $this->getUser();
+        /**
+         * @var User $user
+         */
+        $user->setApiAccess(false);
+        $manager->flush();
+
+        return $this->json(['message' => 'access revoked']);
     }
 }
