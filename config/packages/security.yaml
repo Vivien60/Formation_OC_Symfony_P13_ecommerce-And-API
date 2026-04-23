@@ -19,6 +19,7 @@ security:
 
         login:
           pattern: ^/api/login
+          user_checker: App\Security\ApiUserChecker
           stateless: true
           json_login:
             check_path: /api/login
@@ -26,6 +27,7 @@ security:
             failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api:
+          user_checker: App\Security\ApiUserChecker
           pattern: ^/api
           stateless: true
           jwt: ~
@@ -53,7 +55,7 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
       - { path: ^/login, roles: PUBLIC_ACCESS }
-      - { path: ^/api, allow_if: "is_authenticated() and user.isApiAccessEnabled()" }
+      - { route: app_api_login, allow_if: "user.isApiAccessEnabled()" }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
