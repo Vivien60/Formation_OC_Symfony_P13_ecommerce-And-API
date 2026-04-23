@@ -71,14 +71,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
     private ?Cart $cart = null;
 
-    #[ORM\Column]
     #[Groups(['user:read'])]
-    private ?bool $apiAccessEnabled = null;
+    private ?bool $apiAccessEnabled {
+        get => $this->isApiAccessEnabled();
+    }
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        $this->apiAccessEnabled = false;
     }
 
     public function getId(): ?int
@@ -280,26 +280,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isApiAccessEnabled(): ?bool
     {
-        return $this->apiAccessEnabled;
+        return in_array('ROLE_API_ACCESS', $this->roles, true);
     }
 
     public function enableApiAccess(): static {
-        $this->apiAccessEnabled = true;
-
+        if (!in_array('ROLE_API_ACCESS', $this->roles, true)) {
+            $this->roles[] = 'ROLE_API_ACCESS';
+        }
         return $this;
     }
 
     public function disableApiAccess(): static {
-        $this->apiAccessEnabled = false;
-
+        $this->roles = array_values(array_diff($this->roles, ['ROLE_API_ACCESS']));
         return $this;
     }
-
-    public function setApiAccessEnabled(bool $apiAccessEnabled): static
-    {
-        $this->apiAccessEnabled = $apiAccessEnabled;
-
-        return $this;
-    }
-
 }

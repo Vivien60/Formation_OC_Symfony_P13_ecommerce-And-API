@@ -22,7 +22,7 @@ direction LR
 	    lastname
 	    password
 	    cguAccepted [yes, no]
-	    apiAccess [yes, no]
+	    roles [ApiAccess, null]
         createdAt
         updatedAt
     }
