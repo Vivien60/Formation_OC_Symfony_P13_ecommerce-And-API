@@ -55,7 +55,6 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
       - { path: ^/login, roles: PUBLIC_ACCESS }
-      - { route: app_api_login, allow_if: "user.isApiAccessEnabled()" }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
