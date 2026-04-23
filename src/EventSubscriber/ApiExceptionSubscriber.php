@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Exception\ApiAccessDisabledException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\{DependencyInjection\Attribute\Autowire,
     EventDispatcher\EventSubscriberInterface,
@@ -10,7 +11,7 @@ use Symfony\Component\{DependencyInjection\Attribute\Autowire,
     HttpKernel\Exception\HttpException};
 use App\Exception\ConstraintViolationException;
 
-class ExceptionSubscriber implements EventSubscriberInterface
+class ApiExceptionSubscriber implements EventSubscriberInterface
 {
     private ?ExceptionEvent $event = null;
     private \Throwable $exception;
@@ -65,6 +66,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $message = match (true) {
             $this->exception instanceof ConstraintViolationException => $this->buildConstraintViolationMsg(),
             $this->isRouteNotFoundException() => $this->buildRouteNotFoundMsg(),
+            $this->exception instanceof ApiAccessDisabledException => $this->handleDebugMsg(),
             $this->exception instanceof HttpException => $this->buildRedactedMsg(),
             default => $this->buildDefaultMessage(),
         };
@@ -101,7 +103,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $message = match ($status) {
             400 => 'Requete mal formulée',
             401 => 'Non autorisé',
-            403 => 'Accès refusé',
+            403 => 'Accès API non activé',
             404 => 'Ressource non trouvée',
             default => 'Erreur',
         };
