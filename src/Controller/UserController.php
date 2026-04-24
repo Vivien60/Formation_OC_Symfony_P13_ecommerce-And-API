@@ -34,7 +34,7 @@ final class UserController extends AbstractController
         return $this->json(['message' => 'delete']);
     }
 
-    #[Route('/account/activate-api', name: 'app_activate_api', methods: ['POST'])]
+    #[Route('/account/activate-api', name: 'app_user_activate_api', methods: ['POST'])]
     public function activateAccessToApi(EntityManagerInterface $manager)
     {
         $user = $this->getUser();
@@ -47,7 +47,7 @@ final class UserController extends AbstractController
         return $this->json(['message' => 'access granted']);
     }
 
-    #[Route('/account/deactivate-api', name: 'app_deactivate_api', methods: ['POST'])]
+    #[Route('/account/deactivate-api', name: 'app_user_deactivate_api', methods: ['POST'])]
     public function deactivateAccessToApi(EntityManagerInterface $manager)
     {
         $user = $this->getUser();
