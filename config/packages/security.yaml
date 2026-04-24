@@ -53,9 +53,11 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
-      - { path: ^/login, roles: PUBLIC_ACCESS }
-      - { path: ^/api, roles: ROLE_API_ACCESS }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+      - { route: app_login_*, roles: PUBLIC_ACCESS }
+      - { route: ^app_api_*, roles: ROLE_API_ACCESS }
+      - { route: ^(app_cart_*|app_user_*), roles: IS_AUTHENTICATED_FULLY }
+      - { path: ^/, roles: PUBLIC_ACCESS}
+        # - { path: ^/admin, roles: ROLE_username_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
