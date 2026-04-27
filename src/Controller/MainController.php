@@ -15,10 +15,10 @@ final class MainController extends AbstractController
     public function home(PagerConfiguratorService $pagerService, ProductRepository $repo): Response
     {
         $products = $repo->findLast(9);
-        return $this->json($products);
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
+            'products' => $products,
         ]);
     }
 }
