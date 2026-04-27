@@ -1,0 +1,39 @@
+:root {
+    /* === Couleurs === */
+    --color-bg: #fffdf7;
+    --color-bg-footer: #ffffff;
+    --color-surface-green: #e8f0e3;
+    --color-surface-sand: #ebe3d3;
+    --color-border-subtle: #f6f5f0;
+    --color-bg-muted: #d9d9d9;
+    --color-divider: #cccccc;
+    --color-text-muted: #666666;
+    --color-cta: #565656;
+    --color-brand: #497555;
+    --color-text: #333333;
+    --color-text-strong: #000000;
+    --color-cta-active: #000000;
+    --color-text-on-cta: #ffffff;
+
+    /* === Typographie === */
+    --font-family: "Inter", sans-serif;
+    --second-family: "Playfair Display", serif;
+
+    /* Tailles de texte (issues du §3.2 de figma-analyse.md) */
+    --text-xs: 10px;
+    --text-sm: 12px;
+    --text-base: 14px;
+    --text-md: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 30px;
+    --text-display: 64px;
+
+    /* === Layout === */
+    --container-width: 1440px;
+    --header-height: 81px;
+    --footer-height: 81px;
+    --header-padding-x: 100px;
+    --header-padding-y: 31px;
+}
