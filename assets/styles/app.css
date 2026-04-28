@@ -3,3 +3,5 @@
 @import './typography.css';
 @import './layout/header.css';
 @import './layout/footer.css';
+@import './components/product-card.css';
+@import './pages/home.css';
