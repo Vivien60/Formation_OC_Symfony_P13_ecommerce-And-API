@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello ProductController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/openclassroom/Formation_OC_Symfony_P13_ecommerce-And-API/src/Controller/ProductController.php</code></li>
-        <li>Your template at <code>/var/www/html/openclassroom/Formation_OC_Symfony_P13_ecommerce-And-API/templates/product/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+                                                                                                                                                                                              
+  {% block title %}Green Goodies — {{ product.name }}{% endblock %}                                                                                                                             
+   
+  {% block body %}
+      <article class="product-show">
+          <div class="product-show__image">
+              <img src="{{ asset('images/products/default.png') }}" alt="">
+          </div>
+          <div class="product-show__info">
+              <h1 class="product-show__title">{{ product.name }}</h1>
+              <p class="product-show__price">{{ product.price }}</p>
+              <p class="product-show__description-label">Description</p>
+              <p class="product-show__description">{{ product.fullDescription }}</p>
+              <form class="product-show__form" method="post" action="#">
+                  <button class="product-show__cta" type="submit">Ajouter au panier</button>
+              </form>
+          </div>
+      </article>
+  {% endblock %}   
