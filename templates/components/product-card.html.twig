@@ -1,4 +1,4 @@
-<article class="product-card">
+<article class="product-card" data-component="card">
     <div class="product-card__image">
         <img src="{{ asset('images/products/default.png') }}" alt="">
     </div>
@@ -8,6 +8,6 @@
             <p class="product-card__tagline">{{ tagline }}</p>
         </header>
         <p class="product-card__price">{{ price }}</p>
-        <button class="product-card__cta" type="button">Voir le produit</button>
+        <a class="product-card__cta card__link" type="button" href="{{ path('app_product_show', {'id' : id}) }}">Voir le produit</a>
     </div>
 </article>
