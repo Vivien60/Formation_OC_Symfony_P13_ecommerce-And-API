@@ -33,3 +33,5 @@ let cardEnhancement = function () {
         });
     }
 };
+
+cardEnhancement();
