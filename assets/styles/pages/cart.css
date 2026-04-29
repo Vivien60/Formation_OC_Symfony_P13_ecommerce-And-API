@@ -1,0 +1,148 @@
+main:has(.cart) {
+    background-color: var(--color-bg-grey);
+}
+
+.cart {
+    width: 604px;
+    margin: 0 auto;
+    padding-top: 102px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart__title {
+    font-family: var(--font-family);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 16px;
+}
+
+.cart__clear {
+    align-self: flex-start;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 400;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin-bottom: 18px;
+}
+
+.cart__clear:hover {
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.cart-line {
+    display: flex;
+    align-items: center;
+    gap: 55px;
+    padding-left: 43px;
+    min-height: 220px;
+    background-color: var(--color-bg);
+}
+
+.cart-line__image {
+    flex: 0 0 142px;
+}
+
+.cart-line__image img {
+    width: 142px;
+    height: 133px;
+    object-fit: cover;
+    display: block;
+}
+
+.cart-line__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cart-line__title {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin: 0;
+}
+
+.cart-line__quantity {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.cart-line__price {
+    font-family: var(--font-family);
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 8px 0 0;
+}
+
+.cart-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 60px;
+    min-height: 81px;
+    background-color: rgba(255, 253, 247, 0.7);
+    margin-top: 5px;
+}
+
+.cart-summary__total {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    margin: 0;
+}
+
+.cart-summary__label {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.cart-summary__amount {
+    font-family: var(--font-family);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    color: var(--color-text);
+}
+
+.cart-summary__shipping {
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.cart__form {
+    margin-top: 29px;
+    display: flex;
+    justify-content: center;
+}
+
+.cart__cta {
+    width: 479px;
+    height: 77px;
+    background-color: var(--color-cta);
+    color: var(--color-text-on-cta);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 400;
+    border: 0;
+    cursor: pointer;
+}
+
+.cart__cta:hover {
+    background-color: var(--color-cta-active);
+}

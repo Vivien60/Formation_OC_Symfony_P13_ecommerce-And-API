@@ -16,9 +16,12 @@ final class CartController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
-        return $this->json(data: $user->getCart(), context: ['groups' => ['cart:read']]);
+        /**
+         * @var User $user
+         */
+
         return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
+            'cart' => $user->getCart(),
         ]);
     }
 
@@ -39,6 +42,7 @@ final class CartController extends AbstractController
     public function checkout(Checkout $checkoutService, EntityManagerInterface $manager) : Response
     {
         $cart = $this->getUser()->getCart();
+        
         $order = $checkoutService->createOrderFromCart(cart: $cart);
 
         $manager->flush();
