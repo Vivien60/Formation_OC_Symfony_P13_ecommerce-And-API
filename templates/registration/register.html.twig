@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="login">
+        <div class="login__image">
+            <img src="{{ asset('images/website/auth-register.png') }}" alt="">
+        </div>
+        <div class="login__action">
+            {{ form_start(registrationForm, {'attr' : {'class': 'form'}}) }}
+
+                <h1 class="login__title">Register</h1>
+
+                {{ form_errors(registrationForm) }}
+
+                {% include 'components/field-nested-in-label.html.twig' with {
+                    'field' : registrationForm.lastname,
+                    'label' : 'Nom',
+                } only %}
+
+                {% include 'components/field-nested-in-label.html.twig' with {
+                    'field' : registrationForm.firstname,
+                    'label' : 'Prénom',
+                } only %}
+
+                {% include 'components/field-nested-in-label.html.twig' with {
+                    'field' : registrationForm.email,
+                    'label' : 'Adresse email',
+                } only %}
+
+                {% for field in registrationForm.plainPassword.children %}
+                    {% set label %}
+                        {% if field.vars.name == 'second' %}Confirmez le mot de passe
+                        {% else %}Mot de passe{% endif %}
+                    {% endset %}
+                    {% include 'components/field-nested-in-label.html.twig' with {
+                        'field' : field,
+                        'label' : label,
+                    } only %}
+                {% endfor %}
+
+                {{ form_row(registrationForm.agreeTerms, {'label': 'J\’accepte les CGU de GreenGoodies', 'label_attr' : {'class' : 'form__label--agree-terms'}}) }}
+
+                <button class="cta--dark" type="submit">Se connecter</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}

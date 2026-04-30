@@ -1,0 +1,10 @@
+<div class="form-row">
+    {{ form_errors(field) }}
+
+    <label class="form__label">
+        {{ label }}
+        {{ form_widget(field, {'attr': {'class': 'form__field'}}) }}
+    </label>
+
+    {{ form_help(field) }}
+</div>
