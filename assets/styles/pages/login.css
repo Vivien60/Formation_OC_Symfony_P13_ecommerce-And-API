@@ -24,8 +24,9 @@
 .login__image img {
     object-fit: cover;
     width: 100%;
-    height: 100%;
-    max-height: calc(100vh - 81px);
+    /*height: 100%;
+    max-height: calc(100vh - 81px);*/
+    height: 686px;
 }
 
 .login__action {
@@ -33,8 +34,7 @@
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
-    padding: 87px 127px 0 100px;
-    min-height: 686px;
+    padding: 83px 127px 0 100px;
 }
 
 .login__button {
