@@ -20,8 +20,9 @@
     <section class="products">
         <p class="products__label">Nos produits</p>
         <div class="products__grid">
-            {% include 'components/product-card.html.twig' with {name: "Kit d'hygiène recyclable", tagline: 'Pour une salle de bain éco-friendly', price: '24,99€', id: 461} only %}
-            {% include 'components/product-card.html.twig' with {name: 'Shot Tropical', tagline: 'Fruits frais, pressés à froid', price: '4,50€', id: 461} only %}
+            {% for product in products %}
+                {% include 'components/product-card.html.twig' with {name: product.name, tagline: product.shortDescription, price: product.price, id: product.id} only %}
+            {%  endfor %}
         </div>
     </section>
 
