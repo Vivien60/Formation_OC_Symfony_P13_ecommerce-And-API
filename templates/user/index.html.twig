@@ -1,20 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Green Goodies — Mon compte{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <section class="account">
+        <h1 class="account__title">Mon compte</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <section class="account-block account-block--orders">
+            <h2 class="account-block__subtitle">Mes commandes</h2>
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Date</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%  for order in user.orders %}
+                        <tr>
+                            <td>{{ order.numero }}</td>
+                            <td>{{ order.createdAt | format_datetime('medium', 'none', locale: 'fr') }}</td>
+                            <td>{{ order.totalPrice | format_currency('EUR', {grouping_used:false}, 'fr') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/openclassroom/Formation_OC_Symfony_P13_ecommerce-And-API/src/Controller/UserController.php</code></li>
-        <li>Your template at <code>/var/www/html/openclassroom/Formation_OC_Symfony_P13_ecommerce-And-API/templates/user/index.html.twig</code></li>
-    </ul>
-</div>
+        <section class="account-blocks">
+            <h2 class="visually-hidden">Modifier le compte</h2>
+            <div class="account-block account-block--api">
+                <h3 class="account-block__subtitle">Mon accès API</h3>
+                {% if user.apiAccessEnabled %}
+                    <form class="account-block__form" method="post" action="{{ path("app_user_deactivate_api") }}">
+                        <button class="account-block__cta" type="submit">Désactiver mon accès API</button>
+                    </form>
+                {% else %}
+                    <form class="account-block__form" method="post" action="{{ path("app_user_activate_api") }}">
+                        <button class="account-block__cta" type="submit">Activer mon accès API</button>
+                    </form>
+                {% endif %}
+            </div>
+
+            <div class="account-block account-block--delete">
+                <form class="account-block__form" method="post" action="{{ path("app_user_delete") }}" data-confirm-message="Confirmez-vous la demande de suppression ?">
+                    <button class="account-block__cta" type="submit">Supprimer mon compte</button>
+                </form>
+            </div>
+        </section>
+    </section>
 {% endblock %}

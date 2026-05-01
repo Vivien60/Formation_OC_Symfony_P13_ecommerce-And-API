@@ -8,3 +8,4 @@ import './stimulus_bootstrap.js';
 import './styles/app.css';
 
 import './js/cards.js';
+import './js/confirm.js';

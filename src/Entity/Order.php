@@ -46,6 +46,9 @@ class Order
      */
     private bool $flagPriceIsDirty = false;
 
+    #[ORM\Column(length: 255)]
+    private ?string $numero = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -165,5 +168,17 @@ class Order
             $totalPrice += $item->getQuantity() * $item->getUnitPrice();
         }
         $this->setTotalPrice($totalPrice);
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(string $numero): static
+    {
+        $this->numero = $numero;
+
+        return $this;
     }
 }
