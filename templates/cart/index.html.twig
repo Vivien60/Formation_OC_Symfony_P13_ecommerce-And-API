@@ -12,7 +12,7 @@
        data-target="#empty-cart-form"
     >x Vider le panier</a>
     <form class="hidden-form" method="post" id="empty-cart-form" action="{{ path('app_cart_truncate') }}">
-        <input type="hidden" name="_token" value="{{ csrf_token('empty-cart-' ~ app.user.id) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('empty-cart') }}">
     </form>
 
     {%  for item in cart.items %}
