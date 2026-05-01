@@ -6,8 +6,10 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 final class UserController extends AbstractController
 {
@@ -35,6 +37,7 @@ final class UserController extends AbstractController
     }
 
     #[Route('/account/delete', name: 'app_user_delete', methods: ['POST'])]
+    #[IsCsrfTokenValid('delete-account', tokenKey: '_token')]
     public function delete(EntityManagerInterface $manager): Response
     {
         $user = $this->getUser();
@@ -45,7 +48,8 @@ final class UserController extends AbstractController
     }
 
     #[Route('/account/activate-api', name: 'app_user_activate_api', methods: ['POST'])]
-    public function activateAccessToApi(EntityManagerInterface $manager)
+    #[IsCsrfTokenValid('activate-api', tokenKey: '_token')]
+    public function activateAccessToApi(EntityManagerInterface $manager, Security $security)
     {
         $user = $this->getUser();
         /**
@@ -54,11 +58,14 @@ final class UserController extends AbstractController
         $user->enableApiAccess();
         $manager->flush();
 
+        $security->login($user);
+
         return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/account/deactivate-api', name: 'app_user_deactivate_api', methods: ['POST'])]
-    public function deactivateAccessToApi(EntityManagerInterface $manager)
+    #[IsCsrfTokenValid('deactivate-api', tokenKey: '_token')]
+    public function deactivateAccessToApi(EntityManagerInterface $manager, Security $security)
     {
         $user = $this->getUser();
         /**
@@ -66,6 +73,8 @@ final class UserController extends AbstractController
          */
         $user->disableApiAccess();
         $manager->flush();
+
+        $security->login($user);
 
         return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
     }

@@ -34,10 +34,12 @@
                 <h3 class="account-block__subtitle">Mon accès API</h3>
                 {% if user.apiAccessEnabled %}
                     <form class="account-block__form" method="post" action="{{ path("app_user_deactivate_api") }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('deactivate-api') }}">
                         <button class="account-block__cta" type="submit">Désactiver mon accès API</button>
                     </form>
                 {% else %}
                     <form class="account-block__form" method="post" action="{{ path("app_user_activate_api") }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('activate-api') }}">
                         <button class="account-block__cta" type="submit">Activer mon accès API</button>
                     </form>
                 {% endif %}
@@ -45,6 +47,7 @@
 
             <div class="account-block account-block--delete">
                 <form class="account-block__form" method="post" action="{{ path("app_user_delete") }}" data-confirm-message="Confirmez-vous la demande de suppression ?">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete-account') }}">
                     <button class="account-block__cta" type="submit">Supprimer mon compte</button>
                 </form>
             </div>

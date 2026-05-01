@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 final class CartController extends AbstractController
 {
@@ -26,6 +27,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart/truncate', name: 'app_cart_truncate', methods: ['POST'])]
+    #[IsCsrfTokenValid('empty-cart', tokenKey: '_token')]
     public function truncate(UserRepository $userRepository, EntityManagerInterface $manager) : Response
     {
         $user = $this->getUser();
