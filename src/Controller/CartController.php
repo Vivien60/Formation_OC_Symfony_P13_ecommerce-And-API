@@ -35,14 +35,15 @@ final class CartController extends AbstractController
         $user->getCart()->getItems()->clear();
         $manager->flush();
         $updatedUser = $userRepository->find($user->getId());
-        return $this->json(data: $updatedUser->getCart(), context: ['groups' => ['cart:read']]);
+
+        return $this->redirectToRoute('app_cart', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/cart/checkout', name: 'app_cart_checkout', methods: ['POST'])]
     public function checkout(Checkout $checkoutService, EntityManagerInterface $manager) : Response
     {
         $cart = $this->getUser()->getCart();
-        
+
         $order = $checkoutService->createOrderFromCart(cart: $cart);
 
         $manager->flush();

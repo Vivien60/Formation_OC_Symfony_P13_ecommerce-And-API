@@ -6,7 +6,14 @@
 <section class="cart">
     <h1 class="cart__title">Mon panier</h1>
 
-    <a class="cart__clear" href="#">x Vider le panier</a>
+    <a class="cart__clear" href="#"
+       data-controller="empty-cart"
+       data-action="click->empty-cart#emptyCart"
+       data-target="#empty-cart-form"
+    >x Vider le panier</a>
+    <form class="hidden-form" method="post" id="empty-cart-form" action="{{ path('app_cart_truncate') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('empty-cart-' ~ app.user.id) }}">
+    </form>
 
     {%  for item in cart.items %}
         <article class="cart-line">
