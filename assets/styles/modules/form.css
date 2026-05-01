@@ -35,3 +35,7 @@
     color: var(--color-text-muted);
     text-decoration: underline;
 }
+
+.hidden-form {
+    display: none;
+}
