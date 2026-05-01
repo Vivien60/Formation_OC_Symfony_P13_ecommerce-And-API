@@ -14,15 +14,24 @@ final class UserController extends AbstractController
     #[Route('/account', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
+        return $this->render('user/index.html.twig', [
+            'controller_name' => 'UserController',
+        ]);
+    }
+
+    #[Route('/my-account', name: 'app_user')]
+    public function me(UserRepository $userRepository): Response
+    {
         $user = $this->getUser();
+        return $this->render('user/index.html.twig', [
+            'controller_name' => 'UserController',
+            'user' => $user,
+        ]);
 
         return $this->json(
             data:$user,
             context:['groups' => ['user:read']]
         );
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
     }
 
     #[Route('/account/delete', name: 'app_user_delete', methods: ['POST'])]
@@ -31,7 +40,8 @@ final class UserController extends AbstractController
         $user = $this->getUser();
         $manager->remove($user);
         $manager->flush();
-        return $this->json(['message' => 'delete']);
+
+        return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/account/activate-api', name: 'app_user_activate_api', methods: ['POST'])]
@@ -44,7 +54,7 @@ final class UserController extends AbstractController
         $user->enableApiAccess();
         $manager->flush();
 
-        return $this->json(['message' => 'access granted']);
+        return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/account/deactivate-api', name: 'app_user_deactivate_api', methods: ['POST'])]
@@ -57,6 +67,6 @@ final class UserController extends AbstractController
         $user->disableApiAccess();
         $manager->flush();
 
-        return $this->json(['message' => 'access revoked']);
+        return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
     }
 }
