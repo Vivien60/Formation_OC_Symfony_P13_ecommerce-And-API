@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\Checkout;
@@ -50,5 +51,17 @@ final class CartController extends AbstractController
 
         $manager->flush();
         return $this->json(data: $order, context: ['groups' => ['order:read']]);
+    }
+
+    #[Route('/cart/add-item/{product}', name: 'app_cart_add_item', requirements: ['product' => '\d+'])]
+    public function addItem(EntityManagerInterface $manager, Product $product) : Response
+    {
+        $user = $this->getUser();
+        $cart = $user->getCart();
+
+        $cart->addProduct($product);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_cart', [], Response::HTTP_SEE_OTHER);
     }
 }
