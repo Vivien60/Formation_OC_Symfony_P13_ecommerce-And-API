@@ -19,8 +19,8 @@ let cardEnhancement = function () {
                     });
                 });
             }
-            card.addEventListener('click', function (ev) {
-                if (ev.redispatched || ev.target === mainLink) {
+            document.addEventListener('click', function (ev) {
+                if (!ev.target.closest('[data-component="card"]') || ev.redispatched || ev.target === mainLink) {
                     return;
                 }
                 let noTextSelected = !window.getSelection().toString();
