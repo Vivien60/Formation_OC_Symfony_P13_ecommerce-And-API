@@ -16,12 +16,12 @@
     </form>
 
     {%  for item in cart.items %}
-        <article class="cart-line">
+        <article class="cart-line card" data-component="card">
             <div class="cart-line__image">
                 <img src="{{ asset('images/products/default.png') }}" alt="">
             </div>
             <div class="cart-line__info">
-                <h2 class="cart-line__title">{{ item.product.name }}</h2>
+                <h2 class="cart-line__title"><a class="cart-line__link card__link" type="button" href="{{ path('app_product_show', {'id' : item.product.id}) }}">{{ item.product.name }}</a></h2>
                 <p class="cart-line__quantity">Quantité : {{ item.quantity }}</p>
                 <p class="cart-line__price">{{ item.product.price | format_currency('EUR', {grouping_used:false}, 'fr') }}</p>
             </div>
