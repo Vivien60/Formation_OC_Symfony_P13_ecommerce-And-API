@@ -53,7 +53,8 @@ final class CartController extends AbstractController
         return $this->json(data: $order, context: ['groups' => ['order:read']]);
     }
 
-    #[Route('/cart/add-item/{product}', name: 'app_cart_add_item', requirements: ['product' => '\d+'])]
+    #[Route('/cart/add-item/{product}', name: 'app_cart_add_item', requirements: ['product' => '\d+'], methods: ['POST'])]
+    #[IsCsrfTokenValid('add-to-cart', tokenKey: '_token')]
     public function addItem(EntityManagerInterface $manager, Product $product) : Response
     {
         $user = $this->getUser();
