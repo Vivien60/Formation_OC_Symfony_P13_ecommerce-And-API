@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use App\ValueObject\OrderNumber;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,14 +47,26 @@ class Order
      */
     private bool $flagPriceIsDirty = false;
 
-    #[ORM\Column(length: 255)]
-    private ?string $numero = null;
+    #[ORM\Column(type: 'order_number', length: 255, nullable: true)]
+    private ?OrderNumber $numero = null;
 
-    public function __construct()
+    public function __construct(OrderNumber $numero)
     {
+        $this->numero = $numero;
         $this->items = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public static function fromCart(Cart $cart, OrderNumber $numero) : self
+    {
+        $order = new self($numero);
+        $order->setOwner($cart->getOwner());
+        foreach ($cart->getItems() as $cartItem) {
+            $order->addProduct($cartItem->getProduct(), $cartItem->getQuantity());
+        }
+
+        return $order;
     }
 
     public function getId(): ?int
@@ -170,12 +183,12 @@ class Order
         $this->setTotalPrice($totalPrice);
     }
 
-    public function getNumero(): ?string
+    public function getNumero(): ?OrderNumber
     {
         return $this->numero;
     }
 
-    public function setNumero(string $numero): static
+    public function setNumero(?OrderNumber $numero): static
     {
         $this->numero = $numero;
 

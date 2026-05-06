@@ -40,6 +40,11 @@ class Cart
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    public function emptyCart()
+    {
+        $this->items->clear();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
