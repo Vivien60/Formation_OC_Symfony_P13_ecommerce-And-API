@@ -36,7 +36,8 @@
         <p class="cart-summary__shipping">Frais de livraison : Offert</p>
     </div>
 
-    <form class="cart__form" method="post" action="#">
+    <form class="cart__checkout" method="post" action="{{ path('app_cart_checkout') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('checkout-cart') }}">
         <button class="cart__cta" type="submit">Valider la commande</button>
     </form>
 </section>

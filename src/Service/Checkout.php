@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Cart;
 use App\Entity\Order;
+use App\ValueObject\OrderNumber;
 use Doctrine\ORM\EntityManagerInterface;
 
 class Checkout
@@ -14,9 +15,8 @@ class Checkout
     }
     public function createOrderFromCart(Cart $cart) : Order
     {
-        $order = new Order();
-        $this->mapCartToOrder($order, $cart);
-        $cart->getItems()->clear();
+        $order = $this->mapCartToOrder($cart);
+        $cart->emptyCart();
         $this->entityManager->persist($order);
         $this->entityManager->persist($cart);
         return $order;
@@ -27,11 +27,8 @@ class Checkout
      * @param Cart $cart
      * @return void
      */
-    protected function mapCartToOrder(Order $order, Cart $cart): void
+    protected function mapCartToOrder(Cart $cart): Order
     {
-        $order->setOwner($cart->getOwner());
-        foreach ($cart->getItems() as $cartItem) {
-            $order->addProduct($cartItem->getProduct(), $cartItem->getQuantity());
-        }
+        return Order::fromCart($cart, OrderNumber::generate());
     }
 }

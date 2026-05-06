@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CartController extends AbstractController
 {
@@ -43,13 +44,16 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart/checkout', name: 'app_cart_checkout', methods: ['POST'])]
-    public function checkout(Checkout $checkoutService, EntityManagerInterface $manager) : Response
+    #[IsCsrfTokenValid('checkout-cart', tokenKey: '_token')]
+    public function checkout(Checkout $checkoutService, EntityManagerInterface $manager, TranslatorInterface $translator) : Response
     {
         $cart = $this->getUser()->getCart();
-
         $order = $checkoutService->createOrderFromCart(cart: $cart);
-
         $manager->flush();
+
+        $this->addFlash('success', $translator->trans('flash.order.checkout.success', ['%number%' => (string) $order->getNumero()]));
+
+        return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
         return $this->json(data: $order, context: ['groups' => ['order:read']]);
     }
 
@@ -63,6 +67,6 @@ final class CartController extends AbstractController
         $cart->addProduct($product);
         $manager->flush();
 
-        return $this->redirectToRoute('app_cart', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_cart', ['id' => $product->getId()], Response::HTTP_SEE_OTHER);
     }
 }

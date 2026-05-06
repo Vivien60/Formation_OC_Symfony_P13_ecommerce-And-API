@@ -5,6 +5,7 @@
 @import './layout/footer.css';
 @import './general.css';
 @import './components/product-card.css';
+@import './components/flash.css';
 @import './pages/home.css';
 @import './pages/product-show.css';
 @import './pages/cart.css';
