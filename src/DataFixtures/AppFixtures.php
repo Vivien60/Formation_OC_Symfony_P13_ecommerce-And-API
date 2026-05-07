@@ -6,6 +6,7 @@ use App\Factory\CartFactory;
 use App\Factory\OrderFactory;
 use App\Factory\ProductFactory;
 use App\Factory\UserFactory;
+use App\ValueObject\OrderNumber;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -13,7 +14,10 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $products = ProductFactory::createMany(20);
+        $photos = [
+            'product0.jpg', 'product1.jpg', 'product2.jpg', 'product3.jpg', 'product4.jpg', 'product5.jpg', 'product6.jpg', 'product7.jpg', 'product8.jpg'
+        ];
+        $products = $this->loadProducts($manager, $photos);
 
         $carts = $this->loadCartsWithNewUsers($manager, $products, 20);
 
@@ -62,5 +66,12 @@ class AppFixtures extends Fixture
         }
 
         return $orders;
+    }
+
+    protected function loadProducts(ObjectManager $manager, array $photos) : array
+    {
+        $products = ProductFactory::new()->many(count($photos))->distribute(field:'picture', values:$photos)->create();
+
+        return $products;
     }
 }

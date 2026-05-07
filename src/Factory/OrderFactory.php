@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Order;
 use App\Faker\FakeEntityDates;
+use App\ValueObject\OrderNumber;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
@@ -34,6 +35,7 @@ final class OrderFactory extends PersistentObjectFactory
     {
         return [
             ...$this->fakeEntityDates->newDates(),
+            'numero' => OrderNumber::generate(),
         ];
     }
 

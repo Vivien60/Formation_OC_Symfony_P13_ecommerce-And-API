@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Product;
 use App\Faker\FakeEntityDates;
+use App\ValueObject\OrderNumber;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
@@ -32,10 +33,10 @@ final class ProductFactory extends PersistentObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'description' => self::faker()->text(),
-            'name' => self::faker()->text(255),
+            'fullDescription' => self::faker()->text(255),
+            'name' => self::faker()->word().' '.self::faker()->word(),
             'price' => self::faker()->randomFloat(2,1,500),
-            'shortDescription' => self::faker()->text(),
+            'shortDescription' => self::faker()->text(40),
             ...$this->fakeEntityDates->newDates(),
         ];
     }

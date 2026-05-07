@@ -21,7 +21,7 @@
         <p class="products__label">Nos produits</p>
         <div class="products__grid">
             {% for product in products %}
-                {% include 'components/product-card.html.twig' with {name: product.name, tagline: product.shortDescription, price: product.price, id: product.id} only %}
+                {% include 'components/product-card.html.twig' with {product: product} only %}
             {%  endfor %}
         </div>
     </section>
