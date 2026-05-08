@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Green Goodies — Mon panier{% endblock %}
+
+{% block body %}
+<section class="cart">
+    <h1 class="cart__title">Mon panier</h1>
+
+    <a class="cart__clear" href="#"
+       data-controller="empty-cart"
+       data-action="click->empty-cart#emptyCart"
+       data-target="#empty-cart-form"
+    >x Vider le panier</a>
+    <form class="hidden-form" method="post" id="empty-cart-form" action="{{ path('app_cart_truncate') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('empty-cart') }}">
+    </form>
+
+    {%  for item in cart.items %}
+        <article class="cart-line card" data-component="card">
+            <div class="cart-line__image">
+                <img src="{{ asset('images/products/default.jpg') }}" alt="">
+            </div>
+            <div class="cart-line__info">
+                <h2 class="cart-line__title"><a class="cart-line__link card__link" type="button" href="{{ path('app_product_show', {'id' : item.product.id}) }}">{{ item.product.name }}</a></h2>
+                <p class="cart-line__quantity">Quantité : {{ item.quantity }}</p>
+                <p class="cart-line__price">{{ item.product.price | format_currency('EUR', {grouping_used:false}, 'fr') }}</p>
+            </div>
+        </article>
+    {% endfor %}
+
+    <div class="cart-summary">
+        <p class="cart-summary__total">
+            <span class="cart-summary__label">Total panier :</span>
+            <span class="cart-summary__amount">{{ cart.getTotalPrice | format_currency('EUR', {grouping_used:false}, 'fr') }}</span>
+        </p>
+        <p class="cart-summary__shipping">Frais de livraison : Offert</p>
+    </div>
+
+    <form class="cart__checkout" method="post" action="{{ path('app_cart_checkout') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('checkout-cart') }}">
+        <button class="cart__cta" type="submit">Valider la commande</button>
+    </form>
+</section>
+{% endblock %}

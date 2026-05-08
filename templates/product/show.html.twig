@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Green Goodies — {{ product.name }}{% endblock %}
+
+{% block body %}
+  <article class="product-show">
+      <div class="product-show__image">
+          <img src="{{ asset('images/products/' ~ product.picture) }}" alt="">
+      </div>
+      <div class="product-show__info">
+          <h1 class="product-show__title">{{ product.name }}</h1>
+          <p class="product-show__price">{{ product.price | format_currency('EUR', {grouping_used:false}, 'fr') }}</p>
+          <p class="product-show__description-label">Description</p>
+          <p class="product-show__description">{{ product.fullDescription }}</p>
+          <form class="product-show__add-to-cart" method="post" action="{{ path('app_cart_add_item', {'product' : product.id}) }}">
+              <input type="hidden" name="_token" value="{{ csrf_token('add-to-cart') }}">
+              <button class="product-show__cta" type="submit">Ajouter au panier</button>
+          </form>
+      </div>
+  </article>
+{% endblock %}

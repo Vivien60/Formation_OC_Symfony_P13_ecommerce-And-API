@@ -1,0 +1,4 @@
+flash:
+  order:
+    checkout:
+      success: 'Commande %number% validée !'

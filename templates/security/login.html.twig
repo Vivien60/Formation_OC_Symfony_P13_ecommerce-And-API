@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="login">
+        <div class="login__image">
+            <img src="{{ asset('images/website/auth-login.jpg') }}" alt="">
+        </div>
+        <div class="login__action">
+            <form method="post" class="form">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <h1 class="login__title">Connexion</h1>
+
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+                <label class="form__label">
+                    Adresse email
+                    <input type="email" value="{{ last_username }}" name="_username" id="username"
+                           class="form__field form-control" autocomplete="email" placeholder="email"
+                           required aria-required="true" autofocus >
+                </label>
+                <label class="form__label">
+                    Mot de passe
+                    <input type="password" name="_password" id="password"
+                           class="form__field form-control" autocomplete="current-password" placeholder="mot de passe"
+                           required aria-required="true" >
+                </label>
+                <input class="cta--dark" type="submit" value="Se connecter">
+                <footer class="form__footer">
+                    <p><a href="#">Pas encore de compte ? S’inscrire</a></p>
+                </footer>
+            </form>
+        </div>
+    </div>
+{% endblock %}

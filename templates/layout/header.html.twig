@@ -1,0 +1,16 @@
+<header class="menu">
+    <a class="logo" href="{{ path('app_main') }}" aria-label="Green Goodies — Accueil">
+        <span class="logo__square">G</span>
+        <span class="logo__text">Green Goodies</span>
+    </a>
+    <nav class="menu__nav" aria-label="Navigation principale">
+        <a class="menu__item" href="{{ path('app_main') }}">Nos produits</a>
+        {% if app.user %}
+            <a class="menu__item" href="{{ path('app_cart') }}">Mon panier</a>
+            <a class="menu__item" href="{{ path('app_user') }}">Mon compte</a>
+            <a class="menu__item" href="{{ path('app_logout') }}">Déconnexion</a>
+        {% else %}
+            <a class="menu__item" href="{{ path('app_login') }}">Connexion</a>
+        {% endif %}
+    </nav>
+</header>

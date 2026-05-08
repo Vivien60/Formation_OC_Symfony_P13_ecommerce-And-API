@@ -1,0 +1,66 @@
+@import '../modules/form.css';
+@import '../modules/buttons-and-links.css';
+
+.login {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: row;
+}
+
+.login__title {
+    font-size: var(--text-xl);
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.login__image {
+    width: 734px;
+    flex: 1 0 734px;
+    background-color: var(--color-bg-muted);
+    overflow: hidden;
+}
+
+.login__image img {
+    object-fit: cover;
+    width: 100%;
+    /*height: 100%;
+    max-height: calc(100vh - 81px);*/
+    height: 686px;
+    min-height: 100%;
+}
+
+.login__action {
+    flex: 0 0 479px;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    padding: 83px 127px 0 100px;
+}
+
+.login__button {
+    width: 100%;
+    height: 77px;
+    background-color: var(--color-cta);
+    color: var(--color-text-on-cta);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 400;
+    border: 0;
+    cursor: pointer;
+}
+
+div:has(>.form__label--agree-terms) {
+    display: flex;
+    align-items: flex-start;
+}
+
+#registration_form_agreeTerms {
+    margin-right: 0.35rem ;
+}
+
+.form__label--agree-terms {
+    order:2;
+    display: inline-block;
+    padding: 0 0 20px 0;
+}

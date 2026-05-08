@@ -7,6 +7,10 @@ doctrine:
         #server_version: '16'
 
         profiling_collect_backtrace: '%kernel.debug%'
+
+        # A collection of custom types
+        types:
+          order_number: App\Doctrine\Type\OrderNumberType
     orm:
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
