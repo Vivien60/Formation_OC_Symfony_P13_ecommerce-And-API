@@ -13,7 +13,7 @@
             </p>
         </div>
         <div class="hero__image">
-            <img src="{{ asset('images/website/hero-home.png') }}" alt="">
+            <img src="{{ asset('images/website/hero-home.jpg') }}" alt="">
         </div>
     </section>
 
@@ -21,7 +21,7 @@
         <p class="products__label">Nos produits</p>
         <div class="products__grid">
             {% for product in products %}
-                {% include 'components/product-card.html.twig' with {name: product.name, tagline: product.shortDescription, price: product.price, id: product.id} only %}
+                {% include 'components/product-card.html.twig' with {product: product} only %}
             {%  endfor %}
         </div>
     </section>
@@ -34,13 +34,13 @@
             </p>
         </div>
         <div class="conviction__image">
-            <img src="{{ asset('images/website/conviction.png') }}" alt="">
+            <img src="{{ asset('images/website/conviction.jpg') }}" alt="">
         </div>
     </section>
 
     <section class="conviction-values conviction-values--values">
         <div class="values__image">
-            <img src="{{ asset('images/website/valeurs.png') }}" alt="">
+            <img src="{{ asset('images/website/valeurs.jpg') }}" alt="">
         </div>
         <div class="conviction-values__text">
             <h2 class="values__label">Nos valeurs</h2>

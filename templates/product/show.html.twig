@@ -4,7 +4,7 @@
 {% block body %}
   <article class="product-show">
       <div class="product-show__image">
-          <img src="{{ asset('images/products/default.png') }}" alt="">
+          <img src="{{ asset('images/products/' ~ product.picture) }}" alt="">
       </div>
       <div class="product-show__info">
           <h1 class="product-show__title">{{ product.name }}</h1>

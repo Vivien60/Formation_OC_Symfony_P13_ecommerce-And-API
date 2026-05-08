@@ -1,13 +1,13 @@
 <article class="product-card card" data-component="card">
     <div class="product-card__image">
-        <img src="{{ asset('images/products/default.png') }}" alt="">
+        <img src="{{ asset('images/products/thumbnails/' ~ product.picture) }}" alt="">
     </div>
     <div class="product-card__info">
         <header class="product-card__heading">
-            <h2 class="product-card__title">{{ name }}</h2>
-            <p class="product-card__tagline">{{ tagline }}</p>
+            <h2 class="product-card__title">{{ product.name }}</h2>
+            <p class="product-card__tagline">{{ product.shortDescription }}</p>
         </header>
-        <p class="product-card__price">{{ price }}</p>
-        <a class="product-card__cta card__link" type="button" href="{{ path('app_product_show', {'id' : id}) }}">Voir le produit</a>
+        <p class="product-card__price">{{ product.price }}</p>
+        <a class="product-card__cta card__link" type="button" href="{{ path('app_product_show', {'id' : product.id}) }}">Voir le produit</a>
     </div>
 </article>
