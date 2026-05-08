@@ -37,9 +37,11 @@ Créez votre fichier environnement (.env*).
     php bin/console doctrine:migrations:migrate
     ```
 - Mettre en place une config JWT (le bundle utilisé est `lexik/jwt-authentication-bundle`) :
-  ```bash
-  php bin/console lexik:jwt:generate-keypair
-  ```
+  Si vous n'avez pas de clés RSA, il faut en générer et les indiquer dans votre .env 
+  (cf constantes signalées non initialisées dans le .env) :
+        ```bash
+        php bin/console lexik:jwt:generate-keypair
+        ```
 
 #### 2.2 Générer des données
 Des fixtures ont été créées pour générer des données aléatoires (utilisateurs, produits) :
