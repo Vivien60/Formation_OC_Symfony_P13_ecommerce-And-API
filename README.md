@@ -48,7 +48,7 @@ Des fixtures ont été créées pour générer des données aléatoires (utilisa
 ## 3. Structure du projet
 
 ### Structure du projet
-Classique Symfony en skeleton : un minimum de bundles chargés.
+Symfony webapp classique, avec quelques bundles en plus détaillés plus bas.
 
 ### Modèle de données
 
@@ -127,6 +127,7 @@ direction LR
 - **Authentification API** : JWT via `lexik/jwt-authentication-bundle`
 - **Pagination** : `babdev/pagerfanta-bundle`
 - **Fixtures** : `zenstruck/foundry`
+- **Assets** : minification de CSS et JS via `sensiolabs/minify-bundle`
 - **Base de données** : MySQL
 - **Versionning** : Git
 
