@@ -47,7 +47,7 @@ class Order
      */
     private bool $flagPriceIsDirty = false;
 
-    #[ORM\Column(type: 'order_number', length: 255, nullable: true)]
+    #[ORM\Column(type: 'order_number', length: 255, unique: true, nullable: false)]
     private ?OrderNumber $numero = null;
 
     public function __construct(OrderNumber $numero)

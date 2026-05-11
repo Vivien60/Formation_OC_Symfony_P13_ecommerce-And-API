@@ -37,9 +37,11 @@ Créez votre fichier environnement (.env*).
     php bin/console doctrine:migrations:migrate
     ```
 - Mettre en place une config JWT (le bundle utilisé est `lexik/jwt-authentication-bundle`) :
-  ```bash
-  php bin/console lexik:jwt:generate-keypair
-  ```
+  Si vous n'avez pas de clés RSA, il faut en générer et les indiquer dans votre .env 
+  (cf constantes signalées non initialisées dans le .env) :
+        ```bash
+        php bin/console lexik:jwt:generate-keypair
+        ```
 
 #### 2.2 Générer des données
 Des fixtures ont été créées pour générer des données aléatoires (utilisateurs, produits) :
@@ -48,7 +50,7 @@ Des fixtures ont été créées pour générer des données aléatoires (utilisa
 ## 3. Structure du projet
 
 ### Structure du projet
-Classique Symfony en skeleton : un minimum de bundles chargés.
+Symfony webapp classique, avec quelques bundles en plus détaillés plus bas.
 
 ### Modèle de données
 
@@ -127,6 +129,7 @@ direction LR
 - **Authentification API** : JWT via `lexik/jwt-authentication-bundle`
 - **Pagination** : `babdev/pagerfanta-bundle`
 - **Fixtures** : `zenstruck/foundry`
+- **Assets** : minification de CSS et JS via `sensiolabs/minify-bundle`
 - **Base de données** : MySQL
 - **Versionning** : Git
 
