@@ -3,9 +3,9 @@ main:has(.cart) {
 }
 
 .cart {
-    width: 604px;
+    width: 37.75rem;
     margin: 0 auto;
-    padding-top: 102px;
+    padding-top: 6.375rem;
     display: flex;
     flex-direction: column;
 }
@@ -16,7 +16,7 @@ main:has(.cart) {
     font-weight: 500;
     color: var(--color-text);
     text-align: center;
-    margin: 0 0 16px;
+    margin: 0 0 1rem;
 }
 
 .cart__clear {
@@ -26,7 +26,7 @@ main:has(.cart) {
     font-weight: 400;
     color: var(--color-text-muted);
     text-decoration: none;
-    margin-bottom: 18px;
+    margin-bottom: 1.125rem;
 }
 
 .cart__clear:hover {
@@ -37,19 +37,19 @@ main:has(.cart) {
 .cart-line {
     display: flex;
     align-items: center;
-    gap: 55px;
-    padding-left: 43px;
-    min-height: 220px;
+    gap: 3.4375rem;
+    padding-left: 2.6875rem;
+    min-height: 13.75rem;
     background-color: var(--color-bg);
 }
 
 .cart-line__image {
-    flex: 0 0 142px;
+    flex: 0 0 8.875rem;
 }
 
 .cart-line__image img {
-    width: 142px;
-    height: 133px;
+    width: 8.875rem;
+    height: 8.3125rem;
     object-fit: cover;
     display: block;
 }
@@ -57,7 +57,7 @@ main:has(.cart) {
 .cart-line__info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0.25rem;
 }
 
 .cart-line__title {
@@ -81,7 +81,7 @@ main:has(.cart) {
     font-size: var(--text-lg);
     font-weight: 500;
     color: var(--color-text);
-    margin: 8px 0 0;
+    margin: 0.5rem 0 0;
 }
 
 .cart-summary {
@@ -89,16 +89,16 @@ main:has(.cart) {
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    gap: 4px;
-    padding: 0 60px;
-    min-height: 81px;
+    gap: 0.25rem;
+    padding: 0 3.75rem;
+    min-height: 5.0625rem;
     background-color: rgba(255, 253, 247, 0.7);
-    margin-top: 5px;
+    margin-top: 0.3125rem;
 }
 
 .cart-summary__total {
     display: flex;
-    gap: 8px;
+    gap: 0.5rem;
     align-items: baseline;
     margin: 0;
 }
@@ -126,14 +126,14 @@ main:has(.cart) {
 }
 
 .cart__form {
-    margin-top: 29px;
+    margin-top: 1.8125rem;
     display: flex;
     justify-content: center;
 }
 
 .cart__cta {
-    width: 479px;
-    height: 77px;
+    width: 29.9375rem;
+    height: 4.8125rem;
     background-color: var(--color-cta);
     color: var(--color-text-on-cta);
     font-family: var(--font-family);

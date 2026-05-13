@@ -1,14 +1,14 @@
 /* Hero */
 .hero {
     display: grid;
-    grid-template-columns: 1fr 731px;
-    height: 751px;
+    grid-template-columns: 1fr 45.6875rem;
+    height: 46.9375rem;
     background-color: var(--color-surface-green);
     align-items: center;
 }
 
 .hero__text {
-    width: 362px;
+    width: 22.625rem;
     justify-self: center;
 }
 
@@ -20,8 +20,8 @@
 }
 
 .hero__copy {
-    margin-top: 38px;
-    font-size: 18px;
+    margin-top: 2.375rem;
+    font-size: var(--text-lg);
     font-weight: 300;
     color: var(--color-text);
     width: 100%;
@@ -41,12 +41,12 @@
 /* Section "Nos produits" */
 .products {
     background-color: var(--color-bg);
-    padding-top: 37px;
+    padding-top: 2.3125rem;
 }
 
 .products__label {
-    padding-left: 100px;
-    margin-bottom: 54px;
+    padding-left: 6.25rem;
+    margin-bottom: 3.375rem;
     font-size: var(--text-base);
     font-weight: 500;
     text-transform: uppercase;
@@ -61,13 +61,13 @@
 /* Section "Notre conviction" et Section "Nos valeurs" */
 .conviction-values {
     display: flex;
-    height: 646px;
+    height: 40.375rem;
     justify-content: space-between;
     align-items: flex-end;
 }
 
 .conviction-values__text {
-    padding: 40px 40px;
+    padding: 2.5rem 2.5rem;
 }
 
 /* Section "Notre conviction" — texte gauche, photo droite, fond sable */
@@ -75,7 +75,7 @@
     background-color: var(--color-surface-sand);
 }
 .conviction__label {
-    margin: 0 0 14px;
+    margin: 0 0 0.875rem;
     font-size: var(--text-xl);
     font-weight: 500;
     text-transform: uppercase;
@@ -86,7 +86,7 @@
     font-size: var(--text-base);
     font-weight: 300;
     color: var(--color-text);
-    max-width: 425px;
+    max-width: 26.5625rem;
 }
 
 .conviction__image {
@@ -98,7 +98,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    flex: 0 487px;
+    flex: 0 30.4375rem;
 }
 
 /* Section "Nos valeurs" — photo gauche, texte droite, fond vert */
@@ -115,11 +115,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    flex: 0 487px;
+    flex: 0 30.4375rem;
 }
 
 .values__label {
-    margin: 0 0 14px;
+    margin: 0 0 0.875rem;
     font-size: var(--text-xl);
     font-weight: 500;
     text-transform: uppercase;
@@ -130,6 +130,6 @@
     font-size: var(--text-base);
     font-weight: 300;
     color: var(--color-text);
-    max-width: 465px;
+    max-width: 29.0625rem;
     line-height: 1.4;
 }
