@@ -14,6 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 final class UserController extends AbstractController
 {
+    //Not implemented
     #[Route('/account', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
@@ -22,6 +23,9 @@ final class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Display the account detail of the current user
+     */
     #[Route('/my-account', name: 'app_user')]
     public function me(UserRepository $userRepository): Response
     {
