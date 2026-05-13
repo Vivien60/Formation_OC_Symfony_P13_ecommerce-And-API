@@ -146,3 +146,9 @@ main:has(.cart) {
 .cart__cta:hover {
     background-color: var(--color-cta-active);
 }
+
+.cart__checkout {
+    display: block;
+    text-align: center;
+    padding: 1.8125rem 0;
+}
