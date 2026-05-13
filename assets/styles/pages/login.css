@@ -35,7 +35,7 @@
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
-    padding: 5.1875rem 7.9375rem 0 6.25rem;
+    padding: 5.1875rem 7.9375rem 9rem 6.25rem;
 }
 
 .login__button {

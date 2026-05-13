@@ -41,12 +41,13 @@
 /* Section "Nos produits" */
 .products {
     background-color: var(--color-bg);
-    padding-top: 2.3125rem;
 }
 
 .products__label {
+    height: 5.6875rem;
+    display: flex;
+    align-items: center;
     padding-left: 6.25rem;
-    margin-bottom: 3.375rem;
     font-size: var(--text-base);
     font-weight: 500;
     text-transform: uppercase;
@@ -67,14 +68,23 @@
 }
 
 .conviction-values__text {
-    padding: 2.5rem 2.5rem;
+    padding: 2.5rem 0 2.5rem 2.5rem;
+    max-width: 30.5rem;
 }
 
-/* Section "Notre conviction" — texte gauche, photo droite, fond sable */
-.conviction-values--conviction {
-    background-color: var(--color-surface-sand);
+.conviction-values__image {
+    height: 100%;
+    overflow: hidden;
+    flex: 0 30.5rem;
 }
-.conviction__label {
+
+.conviction-values__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.conviction-values__label {
     margin: 0 0 0.875rem;
     font-size: var(--text-xl);
     font-weight: 500;
@@ -82,23 +92,15 @@
     color: var(--color-text);
 }
 
-.conviction__copy {
+/* Section "Notre conviction" — texte gauche, photo droite, fond sable */
+.conviction-values--conviction {
+    background-color: var(--color-surface-sand);
+}
+
+.conviction-values__copy--conviction {
     font-size: var(--text-base);
     font-weight: 300;
     color: var(--color-text);
-    max-width: 26.5625rem;
-}
-
-.conviction__image {
-    height: 100%;
-    overflow: hidden;
-}
-
-.conviction__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    flex: 0 30.4375rem;
 }
 
 /* Section "Nos valeurs" — photo gauche, texte droite, fond vert */
@@ -106,27 +108,7 @@
     background-color: var(--color-surface-green);
 }
 
-.values__image {
-    height: 100%;
-    overflow: hidden;
-}
-
-.values__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    flex: 0 30.4375rem;
-}
-
-.values__label {
-    margin: 0 0 0.875rem;
-    font-size: var(--text-xl);
-    font-weight: 500;
-    text-transform: uppercase;
-    color: var(--color-text);
-}
-
-.values__copy {
+.conviction-values__copy--values {
     font-size: var(--text-base);
     font-weight: 300;
     color: var(--color-text);

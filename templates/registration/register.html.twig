@@ -43,6 +43,10 @@
                 {{ form_row(registrationForm.agreeTerms, {'label': 'J\’accepte les CGU de GreenGoodies', 'label_attr' : {'class' : 'form__label--agree-terms'}}) }}
 
                 <button class="cta--dark" type="submit">Se connecter</button>
+
+                <footer class="form__footer">
+                    <p><a href="{{ path('app_login') }}">Déjà un compte ? Se connecter</a></p>
+                </footer>
             {{ form_end(registrationForm) }}
         </div>
     </div>

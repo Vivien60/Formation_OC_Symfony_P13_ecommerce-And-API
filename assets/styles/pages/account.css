@@ -5,10 +5,10 @@ main:has(.account) {
 .account {
     width: 37.75rem;
     margin: 0 auto;
-    padding-top: 2.6875rem;
     display: flex;
     flex-direction: column;
     gap: 0.9375rem;
+    padding: 2.6875rem 0 4.75rem 0;
 }
 
 .account__title {
@@ -58,6 +58,10 @@ main:has(.account) {
     font-weight: 500;
     padding: 0.875rem 0;
     border-bottom: 1px solid var(--color-divider);
+}
+
+.orders-table tr {
+    height: 4.25rem;
 }
 
 .orders-table th:first-child,
