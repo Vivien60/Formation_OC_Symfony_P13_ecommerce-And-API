@@ -58,6 +58,10 @@ class Order
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    /**
+     * Generate an order from a cart
+     * @return self
+     */
     public static function fromCart(Cart $cart, OrderNumber $numero) : self
     {
         $order = new self($numero);
@@ -74,6 +78,10 @@ class Order
         return $this->id;
     }
 
+    /**
+     * Return
+     * @return float|null
+     */
     public function getTotalPrice(): ?float
     {
         if( $this->flagPriceIsDirty ) {

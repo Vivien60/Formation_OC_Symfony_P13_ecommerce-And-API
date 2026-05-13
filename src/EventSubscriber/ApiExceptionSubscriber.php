@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber;
 
-use App\Exception\ApiAccessDisabledException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\{DependencyInjection\Attribute\Autowire,
     EventDispatcher\EventSubscriberInterface,
@@ -11,6 +10,19 @@ use Symfony\Component\{DependencyInjection\Attribute\Autowire,
     HttpKernel\Exception\HttpException};
 use App\Exception\ConstraintViolationException;
 
+/**
+ * Class ApiExceptionSubscriber
+ *
+ * This class is responsible for handling exceptions occurring within the application and transforming them
+ * into consistent API responses. It listens to exception events, processes the exceptions based on the current
+ * environment and the type of exception encountered, and creates appropriate responses.
+ *
+ * It provides specific error formatting for production and debug environments, ensuring sensitive information is
+ * omitted from responses in production while providing detailed information in debug environments.
+ *
+ * Implements the logic to handle exceptions like ConstraintViolationException, HttpException, and other common
+ * API-related exceptions, mapping them to structured JSON responses with corresponding HTTP status codes.
+ */
 class ApiExceptionSubscriber implements EventSubscriberInterface
 {
     private ?ExceptionEvent $event = null;
@@ -66,7 +78,6 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
         $message = match (true) {
             $this->exception instanceof ConstraintViolationException => $this->buildConstraintViolationMsg(),
             $this->isRouteNotFoundException() => $this->buildRouteNotFoundMsg(),
-            $this->exception instanceof ApiAccessDisabledException => $this->handleDebugMsg(),
             $this->exception instanceof HttpException => $this->buildRedactedMsg(),
             default => $this->buildDefaultMessage(),
         };

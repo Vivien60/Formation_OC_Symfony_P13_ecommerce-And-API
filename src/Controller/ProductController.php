@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ProductController extends AbstractController
 {
+    //Not implemented yet
     #[Route('/product', name: 'app_product')]
     public function index(): Response
     {

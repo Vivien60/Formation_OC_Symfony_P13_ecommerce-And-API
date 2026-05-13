@@ -4,6 +4,9 @@ namespace App\Service;
 
 use Pagerfanta\PagerfantaInterface;
 
+/**
+ * Configure a pager
+ */
 class PagerConfiguratorService
 {
     public function __construct()
