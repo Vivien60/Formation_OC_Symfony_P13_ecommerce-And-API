@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use App\Service\Checkout;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
@@ -57,14 +58,18 @@ final class CartController extends AbstractController
         return $this->json(data: $order, context: ['groups' => ['order:read']]);
     }
 
-    #[Route('/cart/add-item/{product}', name: 'app_cart_add_item', requirements: ['product' => '\d+'], methods: ['POST'])]
+    #[Route('/cart/add-item/{product}', name: 'app_cart_add_item', requirements: ['product' => '\d+', 'quantity' => '.*'], methods: ['POST'])]
     #[IsCsrfTokenValid('add-to-cart', tokenKey: '_token')]
-    public function addItem(EntityManagerInterface $manager, Product $product) : Response
+    public function addItem(EntityManagerInterface $manager, Product $product, Request $request) : Response
     {
+        $quantity = (int)$request->request->get('quantity');
         $user = $this->getUser();
+        /**
+         * @var User $user
+         */
         $cart = $user->getCart();
+        $cart->setProductQuantityOrRemove(product:$product, newQuantity:$quantity);
 
-        $cart->addProduct($product);
         $manager->flush();
 
         return $this->redirectToRoute('app_cart', ['id' => $product->getId()], Response::HTTP_SEE_OTHER);
