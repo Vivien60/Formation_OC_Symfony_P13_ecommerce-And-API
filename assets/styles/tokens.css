@@ -21,20 +21,20 @@
     --second-family: "Playfair Display", serif;
 
     /* Tailles de texte (issues du §3.2 de figma-analyse.md) */
-    --text-xs: 10px;
-    --text-sm: 12px;
-    --text-base: 14px;
-    --text-md: 16px;
-    --text-lg: 18px;
-    --text-xl: 20px;
-    --text-2xl: 24px;
-    --text-3xl: 30px;
-    --text-display: 64px;
+    --text-xs: 0.625rem;
+    --text-sm: 0.75rem;
+    --text-base: 0.875rem;
+    --text-md: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-display: 4rem;
 
     /* === Layout === */
-    --container-width: 1440px;
-    --header-height: 81px;
-    --footer-height: 81px;
-    --header-padding-x: 100px;
-    --header-padding-y: 31px;
+    --container-width: 90rem;
+    --header-height: 5.0625rem;
+    --footer-height: 5.0625rem;
+    --header-padding-x: 6.25rem;
+    --header-padding-y: 1.9375rem;
 }

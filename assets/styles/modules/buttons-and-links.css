@@ -1,6 +1,6 @@
 .cta--dark {
     width: 100%;
-    height: 77px;
+    height: 4.8125rem;
     background-color: var(--color-cta);
     color: var(--color-text-on-cta);
     font-family: var(--font-family);
