@@ -6,6 +6,10 @@ use Faker\Factory;
 use Faker\Generator;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+/**
+ * Handles the generation of fake entity dates.
+ */
+
 //#[AutoconfigureTag('foundry.faker_provider')]
 class FakeEntityDates
 {

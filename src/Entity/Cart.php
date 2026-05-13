@@ -47,6 +47,24 @@ class Cart
         return $this;
     }
 
+    /**
+     * Abstract the addItem method, allowing to pass a product instead of an item
+     */
+    public function addProduct(Product $product, int $quantity = 1) : static
+    {
+        $cartItem = new CartItem();
+        $cartItem->setProduct($product);
+        $cartItem->setQuantity($quantity);
+        $this->addItem($cartItem);
+
+        return $this;
+    }
+
+    /**
+     * Set the quantity of a product in the cart.
+     * If the product is not in the cart, a line is added
+     * If the quantity is not positive, the line is removed
+     */
     public function setProductQuantityOrRemove(Product $product, int $newQuantity) : static
     {
         if($newQuantity < 1) {
@@ -58,24 +76,29 @@ class Cart
         return $this;
     }
 
+    /**
+     * Abstract the removeItem method, allowing to pass a product instead of an item
+     * @param Product $product
+     * @return $this
+     */
     public function removeProduct(Product $product) : static
     {
-        $cartItem = $this->findItemFromProduct($product);
+        $cartItem = $this->findItemByProduct($product);
         $this->removeItem($cartItem);
 
         return $this;
     }
 
     /**
-     * Méthode qui change la quantité d'un produit.
-     * Si l'item/la ligne n'existe pas encore, il est créé
+     * Method that changes a product's quantity.
+     * If the item/line does not exist yet, it is created.
      * @param Product $product
      * @param int $quantity
      * @return void
      */
     protected function changeProductQuantity(Product $product, int $quantity): void
     {
-        $cartItem = $this->findItemFromProduct($product);
+        $cartItem = $this->findItemByProduct($product);
         if($cartItem) {
             $cartItem->setQuantity($quantity);
         } else {
@@ -86,19 +109,9 @@ class Cart
         }
     }
 
-    public function addProduct(Product $product, int $quantity = 1) : static
-    {
-        $cartItem = new CartItem();
-        $cartItem->setProduct($product);
-        $cartItem->setQuantity($quantity);
-        $this->addItem($cartItem);
-
-        return $this;
-    }
-
     public function addItem(CartItem $item): static
     {
-        $cartItem = $this->findItemFromProduct($item->getProduct());
+        $cartItem = $this->findItemByProduct($item->getProduct());
         if( $cartItem ) {
             $cartItem->setQuantity($item->getQuantity());
         } else {
@@ -121,8 +134,7 @@ class Cart
         return $this;
     }
 
-
-    protected function findItemFromProduct(Product $product): mixed
+    protected function findItemByProduct(Product $product): mixed
     {
         $cartItem = $this->items->findFirst(
             function ($key, $cartItem) use ($product) {
