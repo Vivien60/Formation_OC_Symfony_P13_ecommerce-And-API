@@ -7,6 +7,9 @@ use App\Entity\Order;
 use App\ValueObject\OrderNumber;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * Handles the checkout process by mapping a cart to an order.
+ */
 class Checkout
 {
     public function __construct(private EntityManagerInterface $entityManager)

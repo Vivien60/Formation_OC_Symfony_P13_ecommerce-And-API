@@ -7,6 +7,12 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusExce
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class ApiUserChecker
+ *
+ * Implements the UserCheckerInterface to handle checks during the
+ * authentication process for API access.
+ */
 class ApiUserChecker implements UserCheckerInterface
 {
 

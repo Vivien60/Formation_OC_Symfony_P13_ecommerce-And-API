@@ -4,34 +4,21 @@
  */
 
 let cardEnhancement = function () {
-    let cardsArray = Array.prototype.slice.call(document.querySelectorAll('[data-component="card"]'));
-    if (cardsArray.length > 0) {
-        // Loop through cards adding a click event and identifying the main link
-        cardsArray.forEach(function (card, index) {
-            let mainLink = card.querySelector('.card__link');
-            let clickableElems = Array.prototype.slice.call(card.querySelectorAll('[data-click]'));
+    document.addEventListener('click', function (ev) {
+        const card = ev.target.closest('[data-component="card"]');
+        if (!card || ev.redispatched) return;
+        if (ev.target.closest('[data-click]')) return;
 
-            // Allow other links/buttons in the card to still be "clickable"
-            if (clickableElems) {
-                clickableElems.forEach(function (elem) {
-                    return elem.addEventListener("click", function (event) {
-                        return event.stopPropagation();
-                    });
-                });
-            }
-            document.addEventListener('click', function (ev) {
-                if (!ev.target.closest('[data-component="card"]') || ev.redispatched || ev.target === mainLink) {
-                    return;
-                }
-                let noTextSelected = !window.getSelection().toString();
-                if (noTextSelected) {
-                    const ev2 = new MouseEvent("click", ev);
-                    ev2.redispatched = true;
-                    mainLink.dispatchEvent(ev2);
-                }
-            });
-        });
-    }
+        const mainLink = card.querySelector('.card__link');
+        if (ev.target === mainLink) return;
+
+        const noTextSelected = !window.getSelection().toString();
+        if (noTextSelected) {
+            const ev2 = new MouseEvent("click", ev);
+            ev2.redispatched = true;
+            mainLink.dispatchEvent(ev2);
+        }
+    });
 };
 
-cardEnhancement();
+document.addEventListener('turbo:load', cardEnhancement);

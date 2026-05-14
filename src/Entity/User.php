@@ -272,7 +272,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Méthode getUsername qui permet de retourner le champ qui est utilisé pour l'authentification.
+     * getUsername method used to return the field used for authentication.
      *
      * @return string
      */

@@ -7,20 +7,16 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 final class UserController extends AbstractController
 {
-    #[Route('/account', name: 'app_user')]
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
+    /**
+     * Display the account detail of the current user
+     */
     #[Route('/my-account', name: 'app_user')]
     public function me(UserRepository $userRepository): Response
     {
@@ -38,11 +34,13 @@ final class UserController extends AbstractController
 
     #[Route('/account/delete', name: 'app_user_delete', methods: ['POST'])]
     #[IsCsrfTokenValid('delete-account', tokenKey: '_token')]
-    public function delete(EntityManagerInterface $manager): Response
+    public function delete(EntityManagerInterface $manager, Request $request): Response
     {
         $user = $this->getUser();
         $manager->remove($user);
         $manager->flush();
+        $this->container->get('security.token_storage')->setToken(null);
+        $request->getSession()->invalidate();
 
         return $this->redirectToRoute('app_main', [], Response::HTTP_SEE_OTHER);
     }

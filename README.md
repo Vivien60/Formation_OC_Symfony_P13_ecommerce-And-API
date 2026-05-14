@@ -44,10 +44,18 @@ Créez votre fichier environnement (.env*).
         ```
 
 #### 2.2 Générer des données
-Des fixtures ont été créées pour générer des données aléatoires (utilisateurs, produits) :
+Des fixtures ont été créées pour générer des données aléatoires (utilisateurs, produits).
+Avant de les lancer, vérifiez que vous avez bien défini un mot de passe par défaut (cf .env).
+Ensuite, exécutez les fixtures ainsi :
 - `php bin/console doctrine:fixtures:load`
 
-## 3. Structure du projet
+## 3. Assets
+Si vous êtes en environnement type prod, ou dans un environnement ou vous souhaitez compiler ou minifier les assets (JS, CSS...) :
+
+`php bin/console asset-map:compile`
+
+
+## 4. Structure du projet
 
 ### Structure du projet
 Symfony webapp classique, avec quelques bundles en plus détaillés plus bas.

@@ -11,10 +11,31 @@
           <p class="product-show__price">{{ product.price | format_currency('EUR', {grouping_used:false}, 'fr') }}</p>
           <p class="product-show__description-label">Description</p>
           <p class="product-show__description">{{ product.fullDescription }}</p>
-          <form class="product-show__add-to-cart" method="post" action="{{ path('app_cart_add_item', {'product' : product.id}) }}">
-              <input type="hidden" name="_token" value="{{ csrf_token('add-to-cart') }}">
-              <button class="product-show__cta" type="submit">Ajouter au panier</button>
-          </form>
+          {% if app.user %}
+              {% set cartItem = app.user.cart.items|find(productItem => productItem.product == product) %}
+              {% set libelle = cartItem ? 'Mettre à jour' : 'Ajouter au panier' %}
+              {% set quantite %}
+                  {% if cartItem %}
+                      <label class="add-to-cart__label field-with-textlabel-on">
+                        <span class="field-with-textlabel-on__text">Quantité:</span>
+                        <input class="field-with-textlabel-on__input" name="quantity" type="text"
+                            value="{{ cartItem.quantity }}" min="0" step="1" required>
+                      </label>
+                  {% else %}
+                          <input type="hidden" name="quantity"  value="1">
+                  {% endif %}
+              {% endset %}
+
+              <form class="product-show__add-to-cart add-to-cart" method="post" action="{{ path('app_cart_add_item', {'product' : product.id}) }}">
+                 <input type="hidden" name="_token" value="{{ csrf_token('add-to-cart') }}">
+                 {{ quantite }}<button class="cta cta--dark cta--flex" type="submit">{{ libelle }}</button>
+              </form>
+
+          {% else %}
+              <div class="product-show__add-to-cart">
+                  <a class="cta cta--dark cta--link cta--stretch" href="{{ path('app_login') }}">Se connecter pour ajouter au panier</a>
+              </div>
+          {% endif %}
       </div>
   </article>
 {% endblock %}
