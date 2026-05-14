@@ -14,21 +14,16 @@
           {% if app.user %}
               {% set cartItem = app.user.cart.items|find(productItem => productItem.product == product) %}
               {% set libelle = cartItem ? 'Mettre à jour' : 'Ajouter au panier' %}
-              {% set quantite %}
-                  {% if cartItem %}
-                      <label class="add-to-cart__label field-with-textlabel-on">
-                        <span class="field-with-textlabel-on__text">Quantité:</span>
-                        <input class="field-with-textlabel-on__input" name="quantity" type="text"
-                            value="{{ cartItem.quantity }}" min="0" step="1" required>
-                      </label>
-                  {% else %}
-                          <input type="hidden" name="quantity"  value="1">
-                  {% endif %}
-              {% endset %}
+              {% set quantity = cartItem? cartItem.quantity:1 %}
 
-              <form class="product-show__add-to-cart add-to-cart" method="post" action="{{ path('app_cart_add_item', {'product' : product.id}) }}">
+              <form class="product-show__add-to-cart add-to-cart" method="post" action="{{ path('app_cart_product', {'product' : product.id}) }}">
                  <input type="hidden" name="_token" value="{{ csrf_token('add-to-cart') }}">
-                 {{ quantite }}<button class="cta cta--dark cta--flex" type="submit">{{ libelle }}</button>
+                  <label class="add-to-cart__label field-with-textlabel-on">
+                      <span class="field-with-textlabel-on__text">Quantité:</span>
+                      <input class="field-with-textlabel-on__input" name="quantity" type="text"
+                             value="{{ quantity }}" min="0" step="1" required>
+                  </label>
+                  <button class="cta cta--dark cta--flex" type="submit">{{ libelle }}</button>
               </form>
 
           {% else %}

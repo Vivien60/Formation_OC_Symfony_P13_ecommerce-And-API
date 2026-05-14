@@ -75,6 +75,7 @@ direction LR
         totalPrice
         createdAt
         updatedAt
+        numero
     }
     
     class User {
@@ -83,7 +84,7 @@ direction LR
 	    lastname
 	    password
 	    cguAccepted [yes, no]
-	    roles [ApiAccess, null]
+	    roles [ApiAccess, ...]
         createdAt
         updatedAt
     }

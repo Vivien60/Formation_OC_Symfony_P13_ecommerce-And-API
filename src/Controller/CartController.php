@@ -88,7 +88,7 @@ final class CartController extends AbstractController
      *
      * @return Response A redirection response to the shopping cart page.
      */
-    #[Route('/cart/add-item/{product}', name: 'app_cart_add_item', requirements: ['product' => '\d+', 'quantity' => '.*'], methods: ['POST'])]
+    #[Route('/cart/product/{product}', name: 'app_cart_product', requirements: ['product' => '\d+', 'quantity' => '.*'], methods: ['POST'])]
     #[IsCsrfTokenValid('add-to-cart', tokenKey: '_token')]
     public function addItem(EntityManagerInterface $manager, Product $product, Request $request) : Response
     {
