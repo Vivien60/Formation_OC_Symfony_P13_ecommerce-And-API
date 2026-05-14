@@ -28,12 +28,12 @@
 
               <form class="product-show__add-to-cart add-to-cart" method="post" action="{{ path('app_cart_add_item', {'product' : product.id}) }}">
                  <input type="hidden" name="_token" value="{{ csrf_token('add-to-cart') }}">
-                 {{ quantite }}<button class="add-to-cart__cta" type="submit">{{ libelle }}</button>
+                 {{ quantite }}<button class="cta cta--dark cta--flex" type="submit">{{ libelle }}</button>
               </form>
 
           {% else %}
               <div class="product-show__add-to-cart">
-                  <a class="add-to-cart__cta add-to-cart__cta--link" href="{{ path('app_login') }}">Se connecter pour ajouter au panier</a>
+                  <a class="cta cta--dark cta--link cta--stretch" href="{{ path('app_login') }}">Se connecter pour ajouter au panier</a>
               </div>
           {% endif %}
       </div>
