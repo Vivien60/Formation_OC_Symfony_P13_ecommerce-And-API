@@ -14,15 +14,6 @@ use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 final class UserController extends AbstractController
 {
-    //Not implemented
-    #[Route('/account', name: 'app_user')]
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
     /**
      * Display the account detail of the current user
      */
