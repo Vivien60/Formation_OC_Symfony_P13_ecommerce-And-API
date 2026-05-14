@@ -131,22 +131,6 @@ main:has(.cart) {
     justify-content: center;
 }
 
-.cart__cta {
-    width: 29.9375rem;
-    height: 4.8125rem;
-    background-color: var(--color-cta);
-    color: var(--color-text-on-cta);
-    font-family: var(--font-family);
-    font-size: var(--text-base);
-    font-weight: 400;
-    border: 0;
-    cursor: pointer;
-}
-
-.cart__cta:hover {
-    background-color: var(--color-cta-active);
-}
-
 .cart__checkout {
     display: block;
     text-align: center;
