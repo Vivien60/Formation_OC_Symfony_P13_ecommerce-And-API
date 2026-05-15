@@ -5,7 +5,6 @@
 {% block body %}
     <section class="account">
         <h1 class="account__title">Mon compte</h1>
-
         <section class="account-block account-block--orders">
             <h2 class="account-block__subtitle">Mes commandes</h2>
             <table class="orders-table">
@@ -17,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {%  for order in user.orders %}
+                    {%  for order in user.orders|slice(0, 4) %}
                         <tr>
                             <td>{{ order.numero }}</td>
                             <td>{{ order.createdAt | format_datetime('medium', 'none', locale: 'fr') }}</td>

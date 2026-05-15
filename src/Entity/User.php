@@ -66,6 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Order>
      */
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'owner', orphanRemoval: true)]
+    #[ORM\OrderBy(['updatedAt' => 'DESC'])]
     #[Groups(['user:read'])]
     private Collection $orders;
 
