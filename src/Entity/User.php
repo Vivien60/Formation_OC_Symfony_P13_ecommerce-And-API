@@ -25,9 +25,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\Email]
     #[Assert\NotBlank(message: 'Veuillez renseigner votre adresse email.')]
-    #[Assert\Email(message: 'L\'adresse email "{{ value }}") n\' est pas une adresse email valide.')]
+    #[Assert\Email(message: 'L\'adresse email "{{ value }}" n\'est pas une adresse email valide.')]
     #[Groups(['order:read'])]
     private ?string $email = null;
 
@@ -46,15 +45,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Veillez renseigner votre prénom")]
+    #[Assert\NotBlank(message: "Veuillez renseigner votre prénom")]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Veillez renseigner votre nom")]
+    #[Assert\NotBlank(message: "Veuillez renseigner votre nom")]
     private ?string $lastname = null;
 
-    //TODO Vivien: make CGU field mandatory
     #[ORM\Column]
+    #[Assert\IsTrue]
     private ?bool $cguAccepted = null;
 
     #[ORM\Column]
@@ -67,6 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Order>
      */
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'owner', orphanRemoval: true)]
+    #[ORM\OrderBy(['updatedAt' => 'DESC'])]
     #[Groups(['user:read'])]
     private Collection $orders;
 
